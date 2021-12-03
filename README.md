@@ -3,6 +3,7 @@
 Website: https://csci331.cs.montana.edu/~b62v473/ArtHub/
 
 - [Group Presentation](CSCI-331%20Presentation.pdf)
+- [Group Report](331%20Group%20Report.pdf)
 - [HTML Templates](system/user/templates/art_hub)
 - [Custom Addon](system/user/addons/art_hub)
 - [Custom CSS](themes/user/assets-src/styles)
