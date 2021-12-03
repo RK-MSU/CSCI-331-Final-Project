@@ -1,0 +1,14 @@
+{layout="layouts/_html-wrapper"}
+{if segment_3 != '' && segment_3 != 'thanks'}
+	{redirect='home/contact-us'}
+{/if}
+
+{if segment_3 == 'thanks'}
+	{layout:set name="title"}Thanks!{/layout:set}
+	<div class="alert alert-success" role="alert">
+  		We received you submission. We will get back to you as soon as possible!
+	</div>
+{if:else}
+	{layout:set name="title"}Contact-Us{/layout:set}
+	{snp_contact_us_form}
+{/if}

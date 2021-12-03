@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-md navbar-custom">
+	<div class="container">
+		{!-- navbar brand --}
+		<a class="navbar-brand" href="{site_url}">
+			<img src="{site_url}icon.jpg" class="rounded-3" alt="{site_name} icon" width="30" height="24">
+			{site_name}
+		</a>
+		{!-- navbar toggle button (when collapsed) --}
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#headerNavbarNavContent" aria-controls="headerNavbarNavContent" aria-expanded="false" aria-label="Toggle navigation">
+			<i class="fas fa-bars"></i>
+		</button>
+		{!-- navbar nav --}
+		<div class="collapse navbar-collapse" id="headerNavbarNavContent">
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+				{!-- homepage link 
+				<li class="nav-item">
+					<a class="nav-link{if segment_1 == ''} active{/if}" {if segment_1=='' } aria-current="page" {/if} href="{site_url}">Home</a>
+				</li>
+				--}
+				{!-- posts link --}
+				<li class="nav-item">
+					<a class="nav-link{if segment_1 == 'post'} active{/if}" {if segment_1=='post' } aria-current="page" {/if} href="{path='post'}">Posts</a>
+				</li>
+				{!-- artist link --}
+				<li class="nav-item">
+					<a class="nav-link{if segment_1 == 'artist'} active{/if}" {if segment_1=='artist' } aria-current="page" {/if} href="{path='artist'}">Artists</a>
+				</li>
+				{!-- contact us link --}
+				<li class="nav-item">
+					<a class="nav-link{if segment_1 == 'home' && segment_2 == 'contact-us'} active{/if}" {if segment_1=='home' && segment_2=='contact-us' } aria-current="page" {/if} href="{path='home/contact-us'}">Contact-Us</a>
+				</li>
+				{if logged_in}
+				{!-- member dropdown --}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="loggedInUserHeaderNavbarDropdownNavItem" role="button" data-bs-toggle="dropdown" aria-expanded="false">{username}</a>
+					<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loggedInUserHeaderNavbarDropdownNavItem">
+						<li><h6 class="dropdown-header">Manage Content</h6></li>
+						<li><a class="dropdown-item" href="{path='messages'}"><i class="fas fa-inbox"></i> Messages</a></li>
+						
+						<li><a class="dropdown-item" href="{path='requests'}"><i class="fa-solid fa-handshake"></i> Requests</a></li>
+						{if member_group == 1 || member_group == 6}
+						<li><hr class="dropdown-divider"></li>
+						<li><h6 class="dropdown-header">For Artists</h6></li>
+						<li><a class="dropdown-item" href="{path='commissions/list/{member_id}'}"><i class="fas fa-file-contract"></i> Commissions</a></li>
+						<li><a class="dropdown-item" href="{path='artist/blog/{member_id}'}"><i class="fas fa-th-list"></i> Blog Posts</a></li>
+						<li><a class="dropdown-item" href="{path='post/edit/new'}"><i class="far fa-edit"></i> New Post</a></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><h6 class="dropdown-header">User Action</h6></li>
+						<li><a class="dropdown-item" href="{path='artist/view/{logged_in_member_id}'}"><i class="fas fa-user"></i> Profile</a></li>
+						<li><a class="dropdown-item" href="{path='artist/settings'}"><i class="fas fa-cogs"></i> Settings</a></li>
+						{/if}
+						{if member_group == 1}{!-- only super admins --}
+						<li><a class="dropdown-item" href="{cp_url}" target="_blank"><i class="fas fa-sliders-h"></i> Control Panel</a></li>
+						{/if}
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="{path='logout'}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+					</ul>
+				</li>
+				{if:else}
+				{!-- log-in link --}
+				<li class="nav-item">
+					<a class="nav-link" href="{path='home/login'}">Log-in</a>
+				</li>
+				{/if}
+			</ul>
+		</div>
+	</div>
+</nav>

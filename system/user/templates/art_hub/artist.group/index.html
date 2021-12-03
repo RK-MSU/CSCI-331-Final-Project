@@ -1,0 +1,20 @@
+{layout='layouts/_html-wrapper'}
+
+{preload_replace:p_title='Artists'}
+{preload_replace:p_url='artist'}
+
+{layout:set name='title'}{p_title}{/layout:set}
+{layout:set:append name='breadcrumbs'}{p_title}{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}{p_url}{/layout:set:append}
+
+<div class="list-group">
+	{exp:member:memberlist orderby="screen_name" sort="asc" sticky="only"}
+		{member_rows}
+		{exp:member:custom_profile_data member_id="{member_id}"}
+		<div class="list-group-item list-group-item-action">
+			{snp_artist_list_item}
+		</div>
+		{/exp:member:custom_profile_data}
+		{/member_rows}
+	{/exp:member:memberlist}
+</div>

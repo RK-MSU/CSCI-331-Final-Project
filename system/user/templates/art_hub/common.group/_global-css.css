@@ -1,0 +1,130 @@
+/* 
+--------------------------- 
+	Global CSS
+--------------------------- 
+*/
+
+:root {
+	--art_hub-green: #4c947e;
+	--art_hub-blue: #24314d;
+}
+
+body {
+	/* background-color: #24314d; */
+	background-color: rgba(0,0,0,0.1);
+	/* color: #e3dbdc; */
+	/* padding to avoid content beneath fixed header navbar */
+	padding-top: 70px;
+	/* padding to avoid content beneath fixed footer navbar */
+	padding-bottom: 70px; 
+}
+
+
+
+
+/* --------------------------- 
+	Navbars
+--------------------------- */
+/* header nvabar */
+header > nav {
+	background-color: var(--art_hub-green);
+}
+/* navbar-brand & navbar links color */
+header > nav .navbar-brand, 
+header > nav .navbar-nav > .nav-item > .nav-link {
+	color: midnightblue;
+}
+/* active link color */
+header > nav .navbar-nav > .nav-item > .nav-link.active {
+	color: black;
+}
+header > nav .navbar-nav > .nav-item > .nav-link {
+	border-radius: 10px;
+}
+header > nav .navbar-nav > .nav-item:hover .nav-link {
+	color: #e3dbdc;
+	box-shadow: #24314d 1px 1px 3px;
+	background-color: seagreen;
+}
+header > nav .navbar-toggler {
+	background-color: #4c947e;
+	box-shadow: #24314d 2px 2px 5px;
+}
+header > nav .navbar-toggler i {
+	color: var(--art_hub-green);
+}
+
+/* footer navbar */
+footer > nav {
+	background-color: var(--art_hub-blue);
+}
+
+/* --------------------------- 
+	Navbar Positioning
+	- fixed header nav to top
+	- fix footer nav to bottom
+--------------------------- */
+footer, header{
+	z-index:10;
+	position: fixed;
+	left: 0;
+	right: 0;
+}
+header {
+	top: 0;
+	/* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19) */
+}
+footer {
+	bottom: 0;
+	/* box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, .2), 0 -6px 20px 0 rgba(0, 0, 0, .19) */
+}
+
+img.ee-logo{
+	height:16px;
+	padding-bottom:1px
+}
+
+/* --------------------------- 
+	Category Sidebar
+	--------------------------- */
+ul.category-list {
+	list-style: none;
+}
+
+ul.category-list li {
+	display: inline;
+}
+
+.category-label {
+	border: 1px solid grey;
+}
+
+
+/* --------------------------- 
+	Custom Page Scrollbar
+	--------------------------- */
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	box-shadow: inset 0 0 5px grey;
+	border-radius: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 10px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.convo-messages {
+	max-height: 60vh;
+	min-height: 60vh;
+	overflow-y: auto;
+}

@@ -1,0 +1,11 @@
+{!-- Get a members name 
+    
+    Logic
+    Note: space are removed because we don't want and trailing whitespace
+    
+    {if first_name != '' && last_name != ''}{first_name} {last_name}
+    {if:elseif screen_name != ''}{screen_name}
+    {if:else}{username}
+    {/if}
+
+ --}{exp:member:custom_profile_data member_id="{embed:member_id}"}{if first_name != '' && last_name != ''}{first_name} {last_name}{if:elseif screen_name != ''}{screen_name}{if:else}{username}{/if}{/exp:member:custom_profile_data}

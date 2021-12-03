@@ -1,0 +1,106 @@
+{layout='layouts/_html-wrapper'}
+
+{if logged_out}
+	{redirect='404'}
+{/if}
+
+{if segment_3}
+	{redirect='{segment_1}/{segment_2}'}
+{/if}
+
+<h2>Your Requests</h2>
+<h4><em>commissions you've requested from an artist</em></h4>
+<div class="card shadow">
+        <nav class="card-header">
+            <div class="nav nav-tabs card-header-tabs" id="nav-tab" role="tablist">
+                {!-- pending button --}
+                <button class="nav-link active" id="nav-pending-tab" data-bs-toggle="tab" data-bs-target="#nav-pending" type="button" role="tab" aria-controls="nav-general" aria-selected="true">Pending</button>
+                {!-- accepted button --}
+                <button class="nav-link" id="nav-accepted-tab" data-bs-toggle="tab" data-bs-target="#nav-accepted" type="button" role="tab" aria-controls="nav-categories" aria-selected="true">Accepted</button>
+				{!-- denied button --}
+                <button class="nav-link" id="nav-denied-tab" data-bs-toggle="tab" data-bs-target="#nav-denied" type="button" role="tab" aria-controls="nav-categories" aria-selected="true">Denied</button>
+                {!-- finished button --}
+                <button class="nav-link" id="nav-finished-tab" data-bs-toggle="tab" data-bs-target="#nav-finished" type="button" role="tab" aria-controls="nav-settings" aria-selected="false">Finished</button>
+            </div>
+        </nav>
+		<div class="card-body">
+            
+           <div class="tab-content" id="nav-tabContent">
+				{!-- pending tab --}
+              <div class="tab-pane fade show active" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+				<div class="card-deck">
+				  {exp:channel:entries channel="commissions" status="Pending" sort="desc" dynamic="no"}
+					  {if scrn_name == logged_in_screen_name}
+					  <div class="card" style="border-radius: 10px; margin: 10px;">
+						  <div class="card-body">
+							  <h5 class="card-title"><a href="{path='requests/view/{url_title}'}">{title}</a><span style="color: darkorange"> STATUS: {status}</span></h5>
+							  <h6 class="card-subtitle mb-2 text-muted">Artist: {author}</h6>
+							  <p class="card-text">{commission_description}</p>
+						  </div>
+					  </div>
+					  {/if}
+				{/exp:channel:entries}
+				</div>
+			</div>
+			{!-- accepted tab --}
+              <div class="tab-pane fade" id="nav-accepted" role="tabpanel" aria-labelledby="nav-accepted-tab">
+				<div class="card-deck">
+				  {exp:channel:entries channel="commissions" status="Updated" sort="desc" dynamic="no"}
+						{if scrn_name == logged_in_screen_name}
+						<div class="card" style="border-radius: 10px; margin: 10px;">
+							<div class="card-body">
+								<h5 class="card-title"><a href="{path='requests/view/{url_title}'}">{title}</a><span style="color: lime"> STATUS: {status}</span></h5>
+								<h6 class="card-subtitle mb-2 text-muted">Artist: {author}</h6>
+								<p class="card-text">{commission_description}</p>
+							</div>
+						</div>
+						{/if}
+				  {/exp:channel:entries}
+				  {exp:channel:entries channel="commissions" status="Accepted" sort="desc" dynamic="no"}
+					  {if scrn_name == logged_in_screen_name}
+					  <div class="card" style="border-radius: 10px; margin: 10px;">
+						  <div class="card-body">
+							  <h5 class="card-title"><a href="{path='requests/view/{url_title}'}">{title}</a><span style="color: green"> STATUS: {status}</span></h5>
+							  <h6 class="card-subtitle mb-2 text-muted">Artist: {author}</h6>
+							  <p class="card-text">{commission_description}</p>
+						  </div>
+					  </div>
+					  {/if}
+				{/exp:channel:entries}
+				</div>
+			</div>
+			{!-- denied tab --}
+              <div class="tab-pane fade" id="nav-denied" role="tabpanel" aria-labelledby="nav-denied-tab">
+				<div class="card-deck">
+				  {exp:channel:entries channel="commissions" status="Denied" sort="desc" dynamic="no"}
+					  {if scrn_name == logged_in_screen_name}
+					  <div class="card" style="border-radius: 10px; margin: 10px;">
+						  <div class="card-body">
+							  <h5 class="card-title"><a href="{path='requests/view/{url_title}'}">{title}</a><span style="color: mediumpurple"> STATUS: {status}</span></h5>
+							  <h6 class="card-subtitle mb-2 text-muted">Artist: {author}</h6>
+							  <p class="card-text">{commission_description}</p>
+						  </div>
+					  </div>
+					  {/if}
+				{/exp:channel:entries}
+				</div>
+			</div>
+			{!-- finished tab --}
+              <div class="tab-pane fade" id="nav-finished" role="tabpanel" aria-labelledby="nav-finished-tab">
+				<div class="card-deck">
+				  {exp:channel:entries channel="commissions" status="Finished" sort="desc" dynamic="no"}
+					  {if scrn_name == logged_in_screen_name}
+					  <div class="card" style="border-radius: 10px; margin: 10px;">
+						  <div class="card-body">
+							  <h5 class="card-title"><a href="{path='requests/view/{url_title}'}">{title}</a><span style="color: firebrick"> STATUS: {status}</span></h5>
+							  <h6 class="card-subtitle mb-2 text-muted">Artist: {author}</h6>
+							  <p class="card-text">{commission_description}</p>
+						  </div>
+					  </div>
+					  {/if}
+				{/exp:channel:entries}
+				</div>
+			</div>
+		</div>
+	</div>
+			

@@ -1,0 +1,39 @@
+{layout='layouts/_html-wrapper'}
+
+{layout:set:append name='breadcrumbs'}Messages{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}messages{/layout:set:append}
+
+{layout:set:append name='breadcrumbs'}Conversation{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}messages/conversation/{segment_3}{/layout:set:append}
+
+<div class="d-flex flex-column bg-light">
+    <div class="convo-messages">
+        {exp:art_hub:messages conversation_id="{segment_3}" sort="ASC"}
+        <div class="flex-fill d-flex flex-column">
+            <div class="align-self-center text-muted small">
+                <span class="small">{date format="%D, %F %d, %Y - %g:%i %A"}</span>
+            </div>
+            <div class="flex-fill d-flex flex-row {if sender_id == member_id}justify-content-end ps-md-5 ps-2{if:else}justify-content-start pe-md-5 pe-2{/if}">
+                {if sender_id != member_id}<img src="{avatar}" class="rounded-pill m-1" height="25" width="25">{/if}
+                <p class="{if sender_id == member_id}bg-white{if:else}bg-secondary text-white{/if} border border-1 rounded p-1">{message}</p>
+                {if sender_id == member_id}<img src="{avatar}" class="rounded-pill m-1" height="25" width="25">{/if}
+            </div>
+            {!--
+            Sender ID: {sender_id} - {embed="common/_member-name" member_id="{sender_id}"}<br>
+            Recipient ID: {recipient_id} - {embed="common/_member-name" member_id="{recipient_id}"}<br>
+            Subject: {subject} <br>
+            Date: {date} - {date format="%D, %F %d, %Y - %g:%i:%s"}<br>
+            Status: {status} <br>
+            Message: {message}<br> --}
+        </div>
+        {/exp:art_hub:messages}
+    </div>
+    <div class="flex-fill d-flex flex-column m-1 m-lg-3 bg-white">
+    {exp:art_hub:compose_message conversation_id="{segment_3}" return="messages/conversation/{segment_3}"}
+        <div class="input-group mb-3">
+            <textarea name="message" id="message" class="form-control" rows="3" placeholder="Send a reply..." required></textarea>
+            <button type="submit" class="btn btn-secondary">Send</button>
+        </div>
+    {/exp:art_hub:compose_message}
+    </div>
+</div>

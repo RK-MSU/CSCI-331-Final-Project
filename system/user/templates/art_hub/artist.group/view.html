@@ -1,0 +1,57 @@
+{layout='layouts/_artist-profile'}
+
+{preload_replace:mbr_id="{segment_3}"}
+
+{!-- layout vars (memebers data) --}
+{exp:member:custom_profile_data member_id="{mbr_id}"}
+
+	{!-- layout vars --}
+	{layout:set name="id"}{member_id}{/layout:set}
+	{layout:set name="name"}{embed="common/_member-name" member_id="{member_id}"}{/layout:set}
+	{layout:set name="username"}{username}{/layout:set}
+	{layout:set name="avatar_url"}{avatar_url}{/layout:set}
+	
+	{layout:set name="post_count"}{exp:art_hub:author_entry_count member_id="{member_id}"}{/layout:set}
+	{layout:set name="total_entries"}{total_entries}{/layout:set}
+	{layout:set name="total_comments"}{total_comments}{/layout:set}
+	{if last_comment_date}
+		{layout:set name="last_comment_date"}{last_comment_date:relative}{/layout:set}
+	{/if}
+
+	{!-- member activity --}
+	{if last_activity}
+		{layout:set name="activity_label"}Last Activity{/layout:set}
+		{layout:set name="activity_value"}{last_activity:relative}{/layout:set}
+	{if:else}
+		{layout:set name="activity_label"}Last Visit:{/layout:set}
+		{layout:set name="activity_value"}{last_visit:relative}{/layout:set}
+		activity
+	{/if}
+
+	{!-- last entry date --}
+	{if last_entry_date}
+		{layout:set name="last_entry_date"}{last_entry_date:relative}{/layout:set}
+	{/if}
+
+	{!-- joined date --}
+	{if join_date}
+		{layout:set name="join_date"}{join_date:relative}{/layout:set}
+	{/if}
+
+	{!-- profile --}
+	{if profile}
+		{layout:set name="profile"}{profile}{/layout:set}
+	{/if}
+{/exp:member:custom_profile_data}
+
+
+{!-- content --}
+{exp:channel:entries channel="post" author_id="{mbr_id}" orderby="date" dynamic="no" cache="no" refresh="60" limit="10" search:display_on_profile="y"}
+
+	{!-- append each post to layout list --}
+  {layout:set:append name="posts"}
+  	{snp_post_card_item}
+  {/layout:set:append}
+	  
+
+{/exp:channel:entries}

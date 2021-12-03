@@ -1,0 +1,53 @@
+{layout='layouts/_post-list-layout'}
+
+{preload_replace:id='{segment_3}'}
+{preload_replace:ch='post'}
+{preload_replace:p_title='Blog'}
+{preload_replace:p_url='artist/blog/{segment_3}'}
+{preload_replace:cat_id='{segment_5}'}
+
+
+{layout:set:append name='breadcrumbs'}Artists{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}artist{/layout:set:append}
+{exp:member:custom_profile_data member_id='{id}'}
+	{layout:set name='title'}{embed="common/_member-name" member_id="{segment_3}"}'s Posts{/layout:set}
+    {layout:set:append name='breadcrumbs'}{embed="common/_member-name" member_id="{segment_3}"}{/layout:set:append}
+	{layout:set:append name='breadcrumbs_urls'}artist/view/{member_id}{/layout:set:append}
+{/exp:member:custom_profile_data}
+{layout:set:append name='breadcrumbs'}{p_title}{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}{p_url}{/layout:set:append}
+
+{!-- layout vars, channel/page related --}
+{layout:set name='ch' value='{ch}'}
+{layout:set name='p_url' value='{p_url}'}
+{layout:set name='cat_id' value='{cat_id}'}
+{layout:set name='author_id' value='{segment_3}'}
+{if segment_4 == 'category'}
+    {layout:set name='category'}{exp:art_hub:cat_name id="{segment_5}"}{/layout:set}
+{/if}
+
+{!--
+<li class="nav-item dropdown btn btn-light" style="">
+	<a class="nav-link dropdown-toggle" href="#" id="ProfileNavbarDropdownNavItem" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    	Info
+	</a>
+	<ul class="dropdown-menu" aria-labelledby="ProfileNavbarDropdownNavItem">
+		<li><a class="dropdown-item" href="{path='artist/view/{id}'}">Profile</a></li>
+		<li><hr class="dropdown-divider"></li>
+		<li><a class="dropdown-item" href="{path='commissions/{id}'}">Commission</a></li>
+	</ul>
+</li>
+ --}
+{exp:channel:entries channel='post' dynamic="no" cache="no" refresh="60" category="{segment_5}" author_id="{segment_3}" limit="10" orderby="title" sort="asc" paginate="bottom"}
+   		
+    {snp_post_list_item}
+    {!-- no results --}
+    {if no_results}
+        <div class="alert warn no-results">
+            <p>No Posts</p>
+        </div>
+    {/if}
+    
+    {snp_pagination}
+    
+{/exp:channel:entries}

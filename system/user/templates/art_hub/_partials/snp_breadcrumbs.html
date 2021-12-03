@@ -1,0 +1,16 @@
+{if layout:breadcrumbs}
+<div id="pageBreadcrumbsContainer" class="container">
+    <nav id="pageBreadcrumbs" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{homepage}" class="text-decoration-none">{site_name}</a>
+            </li>
+            {layout:breadcrumbs}
+            <li class="breadcrumb-item"{if count != total_results} aria-current="page"{/if}>
+                {if count != total_results}<a class="text-decoration-none" href="{path='{layout:breadcrumbs_urls index='{index}'}'}">{/if}{value}{if count != total_results}</a>{/if}
+            </li>
+            {/layout:breadcrumbs}
+        </ol>
+    </nav>
+</div>
+{/if}

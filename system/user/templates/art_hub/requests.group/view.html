@@ -1,0 +1,72 @@
+{layout='layouts/_html-wrapper'}
+
+{if segment_4}
+	{redirect='{segment_1}/{segment_2}/{segment_3}'}
+{/if}
+
+{exp:channel:entries channel="commissions" status="Pending|Accepted|Finished|Updated" url_title="{segment_3}"}
+	{!-- Set the Title --}
+	<div class="card">
+  		<div class="card-body">
+    		<h5 class="card-title">{layout:set name="title"}{title}: {status}{/layout:set}</h5>
+			{exp:member:custom_profile_data member_id="{author_id}"}
+			<h6 class="card-subtitle mb-2 text-muted">Artist: {first_name} {last_name}</h6>
+			<h6 class="card-subtitle mb-2 text-muted">Artist's Screen Name:<a href="{path='artist/view/{member_id}'}"> {screen_name}</a></h6>
+			<h6 class="card-subtitle mb-2 text-muted">Artist's email: {email}</h6>
+			{/exp:member:custom_profile_data}
+    		<p class="card-text">Expected by: {delivery_date format="%F %d %Y"}</p>
+			<p class="card-text">Price range: ${p_lower} - ${p_upper}</p>
+			<p class="card-text">For: {commercial} use</p>
+			<p class="card-text">Medium: {categories}{category_name} {/categories}</p>
+			<h5 class="card-subtitle">Description</h5>
+			<p class="card-text">{commission_description}</p>
+			<h5 class="card-subtitle">Related artworks:</h5>
+			<ul>
+			{commission_art}
+    			<li><a href="{path="post/view/{commission_art:url_title}"}">{commission_art:title}</a></li>
+				{if commission_art:no_results}
+					<p>no related posts...</p>
+				{/if}
+  			{/commission_art}
+			</ul>
+			
+			{if commission_images}
+				<h5>Images</h5>
+				<div>
+					{commission_images}
+					{commission_images:art_img}
+					{content}
+					<img src="{url}" height="200" width="200">
+					{/content}
+					{/commission_images:art_img}
+					{/commission_images}
+				</div>
+			{/if} 
+			
+			<h5 class="card-title">From Artist</h5>
+			<p class="card-text">Delivered by: {if final_date} {final_date format="%F %d %Y"}{if:else} no final delivery date decided...{/if}</p>
+			<p class="card-text">Finalized Price:{if final_price} ${final_price}{if:else} no finalized price decided...{/if}</p>
+			
+			<div class="d-flex justify-content-center mb-4">
+			  <div class="btn-group align-self-center bg-light d-flex flex-column flex-md-row shadow rounded" role="group" aria-label="Basic outlined example">
+				  	{if status == 'Updated'}
+						{exp:channel:form channel="commissions" dynamic_title="[title]" unique_url_title="yes" author_only="yes" datepicker="no" include_assets="yes" include_css="no" include_jquery="no" entry_id="{entry_id}" return="requests"}
+							<input type="hidden" name="status" value="Accepted" />
+							<input type="submit" class="btn btn-outline-primary" value="Mark update read">
+						{/exp:channel:form} 
+					{/if}
+					{if status != 'Finished'}
+						<a class="btn btn-outline-primary" href="{path="requests/email/{url_title}"}">
+							<i class="fas fa-paper-plane"></i> Message Artist
+						</a>
+					{/if}
+			  </div>
+		  </div>
+  		</div>
+	</div>
+	
+
+	{if no_results}
+  		No Post
+	{/if}
+{/exp:channel:entries}

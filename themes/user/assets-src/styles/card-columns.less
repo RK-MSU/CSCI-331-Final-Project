@@ -1,0 +1,73 @@
+/* Card Columns */
+.card-columns .card {
+	margin-bottom: .75rem
+}
+
+.card-columns {
+	-webkit-column-gap: 1.25rem;
+	-moz-column-gap: 1.25rem;
+	column-gap: 1.25rem;
+	orphans: 1;
+	widows: 1
+}
+
+.card-columns .card {
+	display: inline-block;
+	width: 100%;
+}
+
+
+.card-col-one {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+}
+
+.card-col-two {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+}
+
+.card-col-three {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+}
+
+.card-col-four {
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
+}
+
+.card-col-five {
+    -webkit-column-count: 5;
+    -moz-column-count: 5;
+    column-count: 5;
+}
+
+/* sm */
+@media ( min-width: @sm-screen ) {
+	.card-columns {
+		.card-col-one
+	}
+}
+/* md */
+@media ( min-width: @md-screen ) {
+	.card-columns {
+		.card-col-two
+	}
+}
+/* lg */
+@media ( min-width: @lg-screen ) {
+	.card-columns {
+		.card-col-three
+	}
+}
+/* xl */
+@media ( min-width: @xl-screen) {
+	.card-columns {
+		.card-col-four
+	}
+}

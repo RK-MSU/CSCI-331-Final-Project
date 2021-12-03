@@ -1,3 +1,60 @@
 # Basics =======================================================================
 
 .DS_Store
+
+# Eclipse
+# .dbeaver
+# .settings
+# .buildpath
+# .project
+# Scripts
+node_modules/*
+
+# Themes/Images ================================================================
+
+media/*
+
+images/captchas/*
+!images/captchas/index.html
+!images/captchas/.htaccess
+
+images/avatars/*
+!images/avatars/default/
+!images/avatars/index.html
+!images/avatars/.htaccess
+
+images/forum_attachments/*
+!images/forum_attachments/index.html
+!images/forum_attachments/.htaccess
+
+images/member_photos/*
+!images/member_photos/index.html
+!images/member_photos/.htaccess
+
+images/signature_attachments/*
+!images/signature_attachments/index.html
+!images/signature_attachments/.htaccess
+
+images/pm_attachments/*
+!images/pm_attachments/index.html
+!images/pm_attachments/.htaccess
+
+images/uploads/*
+!images/uploads/index.html
+!images/uploads/.htaccess
+
+themes/user/assets
+
+# Cache/Config =================================================================
+
+system/user/cache/*
+!system/user/cache/db36_*.sql
+!system/user/cache/index.html
+!system/user/cache/.htaccess
+
+
+system/user/config/*
+!system/user/config/.htaccess
+!system/user/config/index.html
+!system/user/config/config.php
+!system/user/config/dictionary.txt

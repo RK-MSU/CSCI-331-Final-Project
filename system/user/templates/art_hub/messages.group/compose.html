@@ -1,0 +1,42 @@
+{layout="layouts/_html-wrapper"}
+
+{layout:set name="title" value="New Message"}
+
+{layout:set:append name='breadcrumbs'}Messages{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}messages{/layout:set:append}
+
+{layout:set:append name='breadcrumbs'}{embed='common/_member-name' member_id='{segment_3}'}{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}artist/view/{segment_3}{/layout:set:append}
+
+{layout:set:append name='breadcrumbs'}New Message{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}messages/compose/{segment_3}{/layout:set:append}
+
+<div class="row mt-3">
+    <div class="m-auto col-12 col-lg-8">
+        <div class="card shadow">
+            {!-- <div class="card-header">
+                New Message
+            </div> --}
+            <div class="card-body">
+                {exp:art_hub:compose_message recipient_id="{segment_3}" return="messages"}
+                {!-- {layout:set name="title"}New Message: {embed='common/_member-name' member_id='{segment_3}'}{/layout:set} --}
+                <fieldset class="fieldset" disabled>
+                    <div class="input-group">
+                        <span class="input-group-text" id="recipientName">Recipient</span>
+                        <input value="{embed='common/_member-name' member_id='{segment_3}'}" class="form-control bg-light" aria-describedby="recipientName">
+                    </div>
+                </fieldset>
+                <fieldset class="fieldset-required">
+                    <div class="field-instruct">
+                        <label for="message">Message</label>
+                    </div>
+                    <div class="fieldset-control">
+                        <textarea name="message" id="message" rows="5" placeholder="Write your message here..." required></textarea>
+                    </div>
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Send</button>
+            {/exp:art_hub:compose_message}
+            </div>
+        </div>
+    </div>
+</div>

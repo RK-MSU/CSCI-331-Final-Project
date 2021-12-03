@@ -1,0 +1,35 @@
+{!-- use this template to get a members name --}
+{layout="layouts/_member-tagline"}
+
+{if embed:avatar_size}
+    {layout:set name="avatar_size" value="{embed:avatar_size}"}
+{/if}
+
+{exp:member:custom_profile_data member_id="{embed:member_id}"}
+
+    {if embed:hyperlink != 'no'}
+    {layout:set name="link"}{path="artist/view/{member_id}"}{/layout:set}
+    {/if}
+    
+    {!-- Avatar --}
+
+    {if embed:avatar == 'yes' && avatar}
+        {layout:set name="avatar"}{avatar_url}{/layout:set}
+    {/if}
+
+    {!-- Name --}
+    {layout:set name="member_name"}{embed="common/_member-name" member_id="{embed:member_id}"}{/layout:set}
+
+    {!-- Last Activity --}
+
+    {if embed:last_activity == 'yes'}
+        {layout:set name="last_activity"}{last_activity:relative}{/layout:set}
+    {/if}
+
+    {!-- Total Entries --}
+
+    {if embed:total_entries == 'yes'}
+        {layout:set name="total_entries"}{total_entries}{/layout:set}
+    {/if}
+
+{/exp:member:custom_profile_data}

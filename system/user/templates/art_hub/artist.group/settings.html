@@ -1,0 +1,80 @@
+{layout="layouts/_html-wrapper"}
+
+{layout:set name="title" value="Profile Settings"}
+
+
+{exp:member:edit_profile
+    return="artist/settings/success"
+    include_assets="no"
+    datepicker="np"
+    }
+
+<div class="card">
+    <div class="card-body">
+        <fieldset class="fieldset-required">
+            <div class="field-instruct">
+                <label for="username">Username</label>
+            </div>
+            <div class="fieldset-control">
+                <input type="text" name="username" id="username" value="{username}" required>
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+            <div class="field-instruct">
+                <label for="screen_name">Screen Name</label>
+            </div>
+            <div class="fieldset-control">
+                <input type="text" name="screen_name" id="screen_name" value="{screen_name}">
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset-required">
+            <div class="field-instruct">
+                <label for="email">Email</label>
+            </div>
+            <div class="fieldset-control">
+                <input type="text" name="email" id="email" value="{email}" required>
+            </div>
+        </fieldset>
+
+        {exp:member:custom_profile_data member_id="{logged_in_member_id}"}
+        <fieldset class="fieldset-required">
+            <div class="field-instruct">
+                <label for="first_name">First Name</label>
+                <em>Enter your first name.</em>
+            </div>
+            <div class="fieldset-control">
+                <input type="text" name="m_field_id_1" id="first_name" value="{first_name}" dir="ltr" maxlength="256">
+            </div>
+        </fieldset>
+
+
+        <fieldset class="fieldset-required">
+            <div class="field-instruct">
+                <label for="last_name">Last Name</label>
+                <em>Enter your last name.</em>
+            </div>
+            <div class="fieldset-control">
+                <input type="text" name="m_field_id_2" id="last_name" value="{last_name}" dir="ltr" maxlength="256">
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset-required">
+            <div class="field-instruct">
+                <label for="profile">Profile</label>
+                <em>Give us some info about yourself.</em>
+            </div>
+            <div class="fieldset-control">
+                <textarea name="m_field_id_3" id="profile" value="{profile}" rows="6" dir="ltr">{profile}</textarea>
+            </div>
+        </fieldset>
+
+        {/exp:member:custom_profile_data}
+
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+
+</div>
+
+{/exp:member:edit_profile}

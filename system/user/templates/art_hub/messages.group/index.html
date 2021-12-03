@@ -1,0 +1,35 @@
+{layout='layouts/_html-wrapper'}
+
+{layout:set name="title" value="Messages"}
+
+{layout:set:append name='breadcrumbs'}Messages{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}messages{/layout:set:append}
+
+<div class="card">
+	<div class="list-group list-group-flush">
+		<div class="list-group-item">
+			<a class="btn btn-primary" href="{path='messages/new'}">New Message</a>
+		</div>
+		<div class="list-group list-group-flush">
+			{exp:art_hub:message_conversations}
+			<div class="list-group-item list-group-item-action d-flex flex-column">
+				<div class="d-flex flex-column flex-md-row justify-content-md-between">
+					<a href="{path='messages/conversation/{conversation_id}'}" class="text-decoration-none d-flex flex-row">
+						<img src="{avatar}" height="50" width="50" class="rounded">
+						<span class="fs-3 ms-1">{embed="common/_member-name" member_id="{recipient_id}"}</span>
+					</a>
+					{if {has_new_messages}}
+					<span class="align-self-cener">
+						<span class="fs-6 badge bg-secondary">{unread_count}</span>
+					</span>
+					{/if}
+				</div>
+				<div class="d-flex flex-column">
+					<span>{last_message_date format="%D, %F %d, %Y - %g:%i %A"}</span>
+					{!-- <span>{total_messages} Messages</span> --}
+				</div>
+			</div>
+			{/exp:art_hub:message_conversations}
+		</div>
+	</div>
+</div>

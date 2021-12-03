@@ -1,0 +1,221 @@
+{layout='layouts/_html-wrapper'}
+
+{if logged_out}
+    {redirect='404'}
+{/if}
+
+{if segment_3}
+    {redirect='{segment_1}/{segment_2}'}
+{/if}
+
+{preload_replace:id='{segment_2}'}
+{layout:set name='id' value='{id}'}
+
+{layout:set:append name='breadcrumbs'}Artist{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}artist{/layout:set:append}
+
+{layout:set:append name='breadcrumbs'}{embed="common/_member-name" member_id="{id}"}{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}artist/view/{id}{/layout:set:append}
+
+{layout:set:append name='breadcrumbs'}Commission Request{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}commission/{id}{/layout:set:append}
+
+
+{exp:channel:form channel="commissions" dynamic_title="[title]" unique_url_title="yes" author_only="yes" datepicker="no" include_assets="yes" include_css="no" include_jquery="no" return="artist/blog/{id}"}
+<div class="card shadow-lg">
+    <div class="card-body">
+        {exp:member:custom_profile_data member_id="{id}"}
+            {layout:set name='title'}Commission Request: {embed="common/_member-name" member_id="{member_id}"}{/layout:set}
+        {/exp:member:custom_profile_data}
+
+        {!-- Hidden Fields --}
+        <div class="d-none">
+            <input type="hidden" name="status" value="Pending" />{!-- sets the status to pending automatically --}
+            <input type="hidden" name="author_id" value="{id}" />{!-- connects the commision with the artist, artist uses inputed calues to comunicate with client --}
+        </div>
+
+        {!-- Commission Name --}
+        <fieldset class="fieldset-required">
+            <div class="field-instruct">
+                <label for="title">Commission Name</label>
+                <em>Give your commission a name.</em>
+            </div>
+            <div class="fieldset-control">
+                <input type="text" name="title" id="title" value="{title}" required>
+            </div>
+        </fieldset>
+
+        <div class="row">
+            <div class="col">
+                {!-- First Name --}
+                <fieldset class="fieldset-required">
+                    <div class="field-instruct">
+                        <label for="first_name">{label:first_name}</label>
+                        {if instructions:first_name}<em>{instructions:first_name}</em>{/if}
+                    </div>
+                    <div class="fieldset-control">
+                        <input name="first_name" id="first_name" type="text" placeholder="John" value="{first_name}" required>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col">
+                {!-- Last Name --}
+                <fieldset class="fieldset-required">
+                    <div class="field-instruct">
+                        <label for="last_name">{label:last_name}</label>
+                        {if instructions:last_name}<em>{instructions:last_name}</em>{/if}
+                    </div>
+                    <div class="fieldset-control">
+                        <input name="last_name" id="last_name" type="text" placeholder="Doe" value="{last_name}" required>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+        {!-- Screen Name --}
+        <fieldset class="fieldset-required">
+            <div class="field-instruct">
+                <label for="scrn_name">{label:scrn_name}</label>
+                {if instructions:scrn_name}<em>{instructions:scrn_name}</em>{/if}
+            </div>
+            <div class="fieldset-control">
+                <input name="scrn_name" id="scrn_name" type="text" placeholder="JDoe1234" value="{scrn_name}" required>
+            </div>
+        </fieldset>
+
+        {!-- Email Address --}
+        <fieldset class="fieldset-required">
+            <div class="field-instruct">
+                <label for="client_email">{label:client_email}</label>
+                {if instructions:client_email}<em>{instructions:client_email}</em>{/if}
+            </div>
+            <div class="fieldset-control">
+                <input name="client_email" id="client_email" type="email" placeholder="JohnDoe@gmail.com" value="{client_email}" pattern=".+@gmail\.com" required>{!-- pattern may need to inclue a range of email services but idk --}
+            </div>
+        </fieldset>
+
+        {!-- Delivery Date --}
+        <fieldset class="fieldset-required">
+            <div class="field-instruct">
+                <label for="delivery_date">{label:delivery_date}</label>
+                {if instructions:delivery_date}<em>{instructions:delivery_date}</em>{/if}
+            </div>
+            <div class="fieldset-control">
+                <input name="delivery_date" id="delivery_date" type="text" class="datepicker" value="{delivery_date}" autocomplete="off" required>{!-- pattern may need to inclue a range of email services but idk --}
+            </div>
+        </fieldset>
+
+        <p>Price range</p>
+        <div class="row">
+            <div class="col">
+                {!-- p_lower --}
+                <fieldset class="fieldset">
+                    <div class="field-instruct">
+                        <label for="p_lower">From:</label>{!-- <label for="p_lower">{label:p_lower}</label> --}
+                        {if instructions:p_lower}<em>{instructions:p_lower}</em>{/if}
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input name="p_lower" id="p_lower" type="text" class="form-control" value="{p_lower}" placeholder="0" required>{!-- pattern may need to inclue a range of email services but idk --}
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col">
+                {!-- p_upper --}
+                <fieldset class="fieldset">
+                    <div class="field-instruct">
+                        <label for="p_upper">To:</label>{!-- <label for="p_upper">{label:p_upper}</label> --}
+                        {if instructions:p_upper}<em>{instructions:p_upper}</em>{/if}
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input name="p_upper" id="p_upper" type="text" class="form-control" value="{p_upper}" placeholder="10,000,000" required>{!-- pattern may need to inclue a range of email services but idk --}
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                {!-- Medium (categories) --}
+                <fieldset class="fieldset-required">
+                    <div class="field-instruct">
+                        {!-- <label for="categories">{label:categories}</label> --}
+                        {!-- {if instructions:categories}<em>{instructions:categories}</em>{/if} --}
+                    </div>
+                    <div class="fieldset-control">
+                        {category_menu show_group="1"}
+                            <label for="categories">Medium</label><br>
+                            <select name="category[]" id="categories" multiple="multiple" class="form-control-sm" required>
+                                {select_options}
+                            </select>
+                        {/category_menu}
+                    </div>
+                </fieldset>
+
+                {!-- commercial --}
+                <fieldset class="fieldset-required border border-1 border-dark rounded py-1 px-2">
+                    <div class="field-instruct d-flex flex-row">
+                        <label for="categories" class="me-1">For:</label>{!-- <label for="categories">{label:commercial}</label> --}
+                        {!-- {if instructions:categories}<em>{instructions:commercial}</em>{/if} --}
+                        <div class="d-flex flex-row">
+                            {options:commercial}
+                            <div class="form-check me-1">
+                                <input class="form-check-input" type="radio" name="commercial" value="{option_value}" {checked}>
+                                <label class="form-check-label">{option_name}</label>
+                            </div>
+                            {/options:commercial}
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col">
+                {!-- related posts --}
+                <fieldset class="fieldset">
+                    <div class="field-instruct">
+                        <label>Related Posts</label>
+                        {!-- <label for="commission_art">{label:commission_art}</label> --}
+                        {if instructions:commission_art}<em>{instructions:commission_art}</em>{/if}
+                    </div>
+                    {options:commission_art}{exp:channel:entries channel="post" entry_id="{option_value}"}{if author_id == {id}}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="commission_art[data][]" id="commission_art_data_{entry_id}" value="{option_value}" {checked}>
+                        <label class="form-check-label" for="commission_art_data_{entry_id}">{option_name}</label>
+                    </div>
+                    {/if}{/exp:channel:entries}{/options:commission_art}
+                </fieldset>
+            </div>
+        </div>
+
+        {!-- Commission Images --}
+        <fieldset class="fieldset">
+            <div class="field-instruct">
+                <label for="art_desc">{label:commission_images}</label>
+                <em id="artDescriptionHelp">{instructions:commission_images}</em>
+            </div>
+            <div class="fieldset-control show-on-load">
+                {exp:art_hub:fluid_field name="commission_images" entry_id="{entry_id}"}
+            </div>
+        </fieldset>
+        
+        {!-- Commission Description --}
+        <fieldset class="fieldset-required">
+            <div class="field-instruct">
+                <label for="commission_description">{label:commission_description}</label>
+                {if instructions:commission_description}<em>{instructions:commission_description}</em>{/if}
+            </div>
+            <div class="fieldset-control">
+                <textarea id="commission_description" name="commission_description" rows="10" required>{commission_description}</textarea>
+            </div>
+        </fieldset>
+        
+    </div>
+    <div class="card-footer">
+        <input type="submit" class="btn btn-primary" value="Submit">
+    </div>
+</div>
+{/exp:channel:form}

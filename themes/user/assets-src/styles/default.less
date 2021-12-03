@@ -1,0 +1,82 @@
+
+@import "./bootstrap.less";
+@import "./variables.less";
+@import "./common.less";
+@import "./card-columns.less";
+@import "./forms.less";
+@import "./file-field.less";
+@import "./clickable.less";
+@import "./comments.less";
+
+
+
+.post-categories a:hover {
+    color: black;
+}
+
+
+
+
+.sidebar-toc {
+    white-space: nowrap;
+    align-self: flex-start!important;
+    background-color: white;
+    border-radius: 10px;
+    
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    margin-bottom: 1em;
+
+    @media ( max-width: @lg-screen ) {
+        width: 100%;
+    }
+
+
+    @media ( min-width: @lg-screen ) {
+        margin: 1em;
+        margin-top: 0px;
+        .navbar-toggler {
+            display: none;
+        }
+    }
+
+}
+
+#nav_categories, #nav_categories ul {
+    list-style-type: none;
+    padding: 0px;
+}
+#nav_categories ul {
+    border-left: 2px solid #e2e5ee;
+    padding-left: 1em;
+    margin-left: .5em;
+}
+
+.sidebar-toc ul>li {
+    font-weight: 800;
+}
+.sidebar-toc ul>li>a {
+    color: #495057;
+}
+
+
+.sidebar-toc ul>li>ul li {
+    font-weight: 400;
+}
+.sidebar-toc ul>li>ul li>a {
+    color: #6c757d
+}
+
+#nav_categories a {
+    text-decoration: none;
+}
+
+#nav_categories a.active {
+    color: #f62958;
+}
+
+.show-on-load {
+    display: none;
+}

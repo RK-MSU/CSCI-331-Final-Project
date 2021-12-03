@@ -1,0 +1,15 @@
+<div class="d-flex flex-column flex-md-row">
+    {if avatar}
+    <img src="{avatar_url}" alt="{screen_name}'s avatar" width="100"/>
+    {/if}
+    <div class="d-flex flex-column ms-md-3">
+        <a class="fw-bold fs-4" href="{path='artist/view/{member_id}'}">{if '{first_name}' != '' && '{last_name}' != ''}{first_name} {last_name}{if:else}{screen_name}{/if}</a>
+        {if last_activity}<span class="">Last Activity: {last_activity:relative}</span>{/if}
+        {if {exp:art_hub:author_entry_count member_id="{member_id}"} > 0}
+        	<a href="{path='artist/blog/{member_id}'}">{exp:art_hub:author_entry_count member_id="{member_id}"} Posts</a>
+         {/if}
+        {if total_comments}
+        <a href="{path='artist/comments/{member_id}'}">{total_comments} Comments</a>
+      	{/if}
+    </div>
+</div>

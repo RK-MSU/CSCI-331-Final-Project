@@ -1,0 +1,46 @@
+{layout='layouts/_html-wrapper'}
+
+{!-- redirect logged in members --}
+{if logged_in}{redirect='{site_url}'}{/if}
+
+{layout:set name='title' value='Login'}
+
+{if segment_3 == 'forgot-username'}
+<div class="alert alert-success" role="alert">
+        We sent you an email with your <strong>username</strong>, Check your mailbox!
+</div>
+{if:elseif segment_3 == 'forgot-password'}
+<div class="alert alert-success" role="alert">
+    We sent you an email to reset your <strong>username</strong>, Check your mailbox!
+</div>
+{/if}
+
+<div class="row">
+    <div class="col col-md-8 col-lg-6 m-auto">
+        <div class="card shadow-lg">
+            <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                    {exp:member:login_form}
+                    <div class="mb-3">
+                        <label for="usernameLoginInput" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="usernameLoginInput" name="username" value="" maxlength="32" placeholder="Username" autocomplete="username" aria-describedby="usernameLoginHelp">
+                        <div id="usernameLoginHelp" class="form-text">Enter you username.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordLoginInput" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="passwordLoginInput" name="password" value="" maxlength="32" placeholder="Password" autocomplete="current-password" aria-describedby="passwordLoginHelp">
+                        <div id="passwordLoginHelp" class="form-text">Enter your password.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    {/exp:member:login_form}
+                </div>
+                <div class="list-group-item">
+                    Forgot password? <a href="{path='home/forgot-password'}">Reset Password</a>
+                </div>
+            </div>
+            <div class="card-footer">
+                Don't have an account? <a href="{path='home/register'}" class="card-link">Register</a>
+            </div>
+        </div>
+    </div>
+</div>

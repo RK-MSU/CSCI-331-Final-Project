@@ -1,0 +1,102 @@
+
+{layout="layouts/_html-wrapper"}
+
+{layout:set name="title" value="Become an Artist"}
+
+{if logged_in && ( member_group == 5 || member_group == 1 ) } 
+    {exp:channel:entries 
+        channel="upgrade_request" 
+        {if segment_3 == 'edit' && segment_4}entry_id="-1"{/if}
+        dynamic="no" 
+        status="open|closed|pending|accepted|denied" 
+        author_id="{logged_in_member_id}" 
+        limit="1"
+        }
+        
+        <div class="row">
+            {if !segment_3}
+            <div class="col-12 mb-3 alert alert-warning" role="alert">You have already made a request to upgrade you account!</div>
+            {if:elseif segment_3 == 'thanks'}
+            <div class="col-12 mb-3 alert alert-success" role="alert">Thank you for submitting a request! We will be reply as soon as possible.</div>
+            {if:elseif segment_3 == 'success'}
+            <div class="col-12 mb-3 alert alert-success" role="alert">Account request upgrade has been updated! We will be reply as soon as possible.</div>
+            {/if}
+            <div class="col-12 col-md-10 m-auto">
+                <div class="card shadow">
+                    <div class="card-header">
+                        Account Upgrade Request Submission
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <td class="fw-bold">Member:</td>
+                                <td>{embed="common/_member-name" member_id="{author_id}"}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Status:</td>
+                                <td>{status}</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">Request Date:</td>
+                                <td>{entry_date format="%d/%m/%Y"}</td>
+                            </tr>
+                        </table>
+                        <div class="d-flex flex-column">
+                            <span class="fw-bold">Submission</span>
+                            {upgrade_desc}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{path='account/upgrade/edit/{entry_id}'}" class="btn btn-primary">Update Request</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {if no_results}
+        {exp:channel:form 
+            channel="upgrade_request"
+            {if segment_3 == 'edit' && segment_4}require_entry="yes" entry_id="{segment_4}" return="account/upgrade/success"{if:else}require_entry="no" return="account/upgrade/thanks"{/if}
+            show_fields="upgrade_desc"
+            unique_url_title="yes"
+            dynamic_title="{logged_in_username}"
+            datepicker="no" 
+            include_assets="no" 
+            include_css="no"
+            include_jquery="no"}
+                <div class="row">
+                    <div class="col-12 col-md-8 m-auto">
+                        <div class="card shadow">
+                            <div class="card-header">
+                                Account Upgrade Request
+                            </div>
+                            <div class="card-body">
+                                <fieldset class="fieldset-required">
+                                    <div class="field-instruct">
+                                        <label for="upgrade_desc">{label:upgrade_desc}</label>
+                                    </div>
+                                    <div class="fieldset-control">
+                                        <textarea id="upgrade_desc" class="form-control" name="upgrade_desc" dir="ltr" rows="10" placeholder="">{upgrade_desc}</textarea>
+                                        <div class="form-text">{instructions:upgrade_desc}</div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="card-footer">
+                                <input type="submit" class="btn btn-primary" value="Submit">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {/exp:channel:form}
+        {/if}
+
+    {/exp:channel:entries}
+{if:elseif logged_in}
+    <div class="alert alert-dark" role="alert">
+        Only <strong>Members</strong> can request an account upgrade!
+        <br>
+        Your member group: {member_group}
+    </div>
+{if:else}
+    {redirect="home/login"}
+{/if}

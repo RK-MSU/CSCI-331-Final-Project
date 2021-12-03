@@ -1,0 +1,28 @@
+{layout='layouts/_html-wrapper'}
+{layout:set name='title'}{layout:title}{/layout:set}
+{layout:set name="scripts"}{layout:scripts}{/layout:set}
+
+
+<div class="row">
+    <div class="col col-md-8 col-lg-6 m-auto">
+        <div class="card shadow">
+            <div class="card-body">
+                {layout:contents}
+            </div>
+            {if layout:card_list_group}
+            <ul class="list-group list-group-flush">
+                {layout:card_list_group}
+                <li class="list-group-item">{value}</li>
+                {/layout:card_list_group}
+            </ul>
+            {/if}
+            {if layout:footer_text}
+            <div class="card-footer">
+                <p class="card-text">
+                    {layout:footer_text}
+                </p>
+            </div>
+            {/if}
+        </div>
+    </div>
+</div>

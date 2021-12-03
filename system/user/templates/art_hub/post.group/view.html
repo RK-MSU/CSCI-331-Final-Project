@@ -1,0 +1,68 @@
+{layout='layouts/_post-layout'}
+
+{!-- text replacements --}
+{preload_replace:ch="post"}
+{preload_replace:p_url="post/view/{segment_3}"}
+{preload_replace:url_title="{segment_3}"}
+{preload_replace:cache_entry="no"}
+{preload_replace:cache_refresh="60"}
+
+{!-- set layout vars --}
+{layout:set name="ch"}{ch}{/layout:set}
+{layout:set name="url_title"}{url_title}{/layout:set}
+{layout:set name="p_url"}{p_url}{/layout:set}
+
+{exp:channel:entries channel="{ch}" url_title="{url_title}" cache="{cache_entry}" refresh="{cache_refresh}" dynamic="no" limit="1" require_entry="yes" track_views="one"}
+
+	{!-- No Results --}
+	{if no_results} {redirect="post"} {/if}
+	
+	{!-- Layout Vars --}
+	{layout:set name="title"}{title}{/layout:set}
+	{layout:set name="entry_id"}{entry_id}{/layout:set}
+	{layout:set name="author_id"}{author_id}{/layout:set}
+	{if allow_comments}{layout:set name="allow_comments"}1{/layout:set}{if:else}{layout:set name="allow_comments"}0{/layout:set}{/if}
+	{layout:set name="comment_total"}{comment_total}{/layout:set}
+	
+	{layout:set:append name='breadcrumbs'}{title}{/layout:set:append}
+	{layout:set:append name='breadcrumbs_urls'}{p_url}{segment_3}{/layout:set:append}
+
+	<div class="card">
+		<div class="card-header d-flex flex-row justify-content-between">
+			<div class="flex-fill pt-1">
+				{embed="common/_member-info" member_id="{author_id}" avatar="yes" last_activity='no' total_entries='no' }
+			</div>
+			{if logged_in && (logged_in_member_group == 1 || logged_in_member_id == author_id)}
+			<div class="d-flex flex-row">
+				<a class="btn btn-sm btn-outline-secondary" href="{path='post/edit/{entry_id}'}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Post"><i class="fas fa-edit"></i></a>
+				{if logged_in_member_group == 1}<a class="btn btn-sm btn-outline-secondary ms-1" href="{cp_edit_entry_url}"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="View in Control Panel"><i class="fas fa-cogs"></i></a>{/if}
+			</div>
+			{/if}
+		</div>
+		<div class="list-group list-group-flush">
+			<div class="list-group-item">
+				<div class="row">
+					<div class="col-12 col-md-5 d-flex justify-content-center">
+						{art_img}
+						<a href="{url}">
+							<img src="{url}" class="card-img-top" alt="{title}" style="max-width: 100%;">
+						</a>
+						{/art_img}
+					</div>
+					<div class="col-12 col-md-7 d-flex flex-column">
+						<h5 class="card-title fs-3">{title}</h5>
+						<div>
+							<span>By <a href="{path='artist/view/{author_id}'}" class="text-decoration-none">{embed="common/_member-name" member_id="{author_id}"}</a></span>
+						</div>
+						<span class="fst-italic small">{art_date format="%F %j%S, %Y"}</span>
+						{!-- categories --}
+						{if has_categories}
+						<div>{snp_post_categories}</div>
+						{/if}
+						<div class="small pt-2">{art_desc}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{/exp:channel:entries}

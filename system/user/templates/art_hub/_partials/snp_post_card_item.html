@@ -1,0 +1,44 @@
+<div class="card shadow-sm clickable post" data-nav-href="{path='post/view/{url_title}'}">
+	{!-- card header (author tagline) --}
+	{if "{show_member_post_header}" == 'yes'}
+	<div class="card-header d-flex flex-row justify-content-between">
+		<div class="flex-fill">
+            {embed="common/_member-info" member_id="{author_id}" avatar="yes" last_activity='no' total_entries='no' }
+        </div>
+		{if logged_in && logged_in_member_group == 1}
+        <div class="d-flex flex-row">
+            <a class="btn btn-sm btn-outline-secondary ms-1 p-1" href="{cp_edit_entry_url}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="View in Control Panel"><i class="fas fa-sm fa-cogs"></i></a>
+        </div>
+        {/if}
+	</div>
+	{/if}
+
+	{!-- post image --}
+	{if art_img}
+	<img src="{art_img}" class="card-img-top post-art" alt="Art Post: {art_img}{title}{/art_img}">
+	{/if}
+
+	{!-- card body content --}
+	<ul class="list-group list-group-flush art-post-content">
+		
+		{!-- post title and date --}
+		<li class="list-group-item d-flex flex-row flex-wrap post-title">
+			<span class="flex-fill fw-bold m-0 fs-6 lh-1">{title}</span>
+			<span class="small fst-italic align-self-center lh-1 text-muted">{art_date:relative}</span>
+		</li>
+
+		{!-- post description --}
+		{if art_desc}
+		<li class="list-group-item post-desc">
+			<p class="card-text small lh-1">{art_desc:limit characters="150"}</p>
+		</li>
+		{/if}
+
+		{!-- categories --}
+		{if has_categories}
+		<li class="list-group-item small post-categories">
+			{snp_post_categories}
+		</li>
+		{/if}
+	</ul>
+</div>

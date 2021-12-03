@@ -1,0 +1,14 @@
+{layout='layouts/_html-wrapper'}
+
+{preload_replace:show_member_post_header="yes"}
+
+{layout:set name='title' value='We Have Posts'}
+
+<div class="card-columns">
+    {exp:channel:entries channel="post" dynamic="no" cache="no" refresh="60" sticky="yes" limit="10"}
+    	{snp_post_card_item}
+    {/exp:channel:entries}
+</div>
+
+<h1>Contact Us</h1>
+{snp_contact_us_form}

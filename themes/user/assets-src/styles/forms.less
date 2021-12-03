@@ -1,0 +1,70 @@
+/* --------------------------- 
+	Forms & Fields
+	--------------------------- */
+fieldset {
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 20px;
+    border: 0px;
+
+    .field-instruct {
+        margin-bottom: 5px;
+        label,
+        em {
+            margin: 0px;
+            display: block;
+            position: relative;
+        }
+    }
+    .fieldset-control {
+        input,
+        textarea {
+            display: block;
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0.25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+    }
+}
+
+.field-inst-req() {
+    content: "*";
+    color: var(--bs-danger);
+    font-size: .8em;
+    position: relative;
+    top: -3px;
+    margin-left: 3px;
+}
+
+.fieldset-required {
+    >.field-instruct>label:after {
+        .field-inst-req();
+    }
+
+    >div>.field-instruct>label:after {
+        .field-inst-req();
+    }
+    
+}
+
+fieldset .field-instruct > label ~ em {
+    font-size: .875em;
+    color: #6c757d;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+    border: 1px solid black;
+    box-shadow: 0 0 3px #719ECE;
+}

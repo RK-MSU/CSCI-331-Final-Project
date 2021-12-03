@@ -1,0 +1,117 @@
+{layout="layouts/_html-wrapper"}
+
+{!-- redirect logged in members --}
+{if logged_in}{redirect='{site_url}'}{/if}
+
+{!-- {exp:art_hub:load_package_js name="member-register"} --}
+{exp:art_hub:load_package_js name="app/controller/member-registration"}
+
+{layout:set name="title" value="Register"}
+
+<div class="row" ng-controller="memberRegistration">
+    <div class="col col-md-8 col-lg-6 m-auto">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h5 class="card-title">New Member</h5>
+            </div>
+            <div class="card-body">
+                {exp:member:registration_form return="home/registration/success"}
+                <div class="row g-3">
+
+                    {!-- First Name --}
+                    <div class="col col-12 col-md-6 form-floating mb-3">
+                        <input type="text" class="form-control" id="firstNameRegisterInput" name="m_field_id_1" value="" placeholder="First Name" autocomplete="given-name" aria-describedby="firstNameRegisterHelp" required/>
+                        <label for="firstNameRegisterInput" class="form-label ms-2">First Name</label>
+                        <div id="firstNameRegisterHelp" class="form-text">Enter your first name.</div>
+                    </div>
+                    
+                    {!-- Last Name --}
+                    <div class="col col-12 col-md-6 form-floating mb-3">
+                        <input type="text" class="form-control" id="lastNameRegisterInput" name="m_field_id_2" value="" placeholder="Last Name" autocomplete="family-name" aria-describedby="lastNameRegisterHelp" required/>
+                        <label for="lastNameRegisterInput" class="form-label ms-2">Last Name</label>
+                        <div id="lastNameRegisterHelp" class="form-text">Enter your last name.</div>
+                    </div>
+
+                </div>
+
+                <div class="col-12 form-check mb-4">
+                    <input class="form-check-input" type="checkbox" id="sceenNameSameAsUsernameInput" checked="checked" value="" ng-model="screen_name_same_as"/>
+                    <label class="form-check-label" for="sceenNameSameAsUsernameInput">Screen Name same as Username </label>
+                </div>
+
+                <div class="row g-3">
+
+                    {!-- Username --}
+                    <div id="usernameInputContent" class="col col-12 form-floating mb-3" ng-class="{'col-md-6': !screen_name_same_as}">
+                        <input type="text" class="form-control" id="usernameRegisterInput" name="username" value="{if username}{username}{/if}" maxlength="32" placeholder="Username" autocomplete="username" aria-describedby="usernameRegisterHelp" ng-model="username" required/>
+                        <label for="usernameRegisterInput" class="form-label ms-2">Username</label>
+                        <div id="usernameRegisterHelp" class="form-text">Enter a Username.</div>
+                    </div>
+
+                    {!-- Screen Name --}
+                    <div id="screenNameInputContent" class="col col-12 col-md-6 form-floating mb-3" ng-class="{'d-none': screen_name_same_as}">
+                        <input type="text" class="form-control" id="screenNameRegisterInput" name="screen_name" value="{if screen_name}{screen_name}{/if}" maxlength="32" placeholder="Screen Name" ng-model="screen_name" aria-describedby="screenNameRegisterHelp"/>
+                        <label for="screenNameRegisterInput" class="form-label ms-2">Screen Name</label>
+                        <div id="screenNameRegisterHelp" class="form-text">Enter a Screen Name.</div>
+                    </div>
+
+                </div>
+
+                {!-- Email --}
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="emailRegisterInput" name="email" value="{if email}{email}{/if}" placeholder="example@email.com" autocomplete="email" aria-describedby="emailRegisterHelp" required/>
+                    <label for="emailRegisterInput" class="form-label">Email</label>
+                    <div id="emailRegisterHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+
+                <div class="row g-3">
+
+                    {!-- Password --}
+                    <div class="col col-12 col-md-6 form-floating mb-3">
+                        <input type="password" class="form-control" id="passwordRegisterInput" name="password" value="{if password}{password}{/if}" placeholder="Password" autocomplete="new-password" required/>
+                        <label for="passwordRegisterInput" class="form-label ms-2">Password</label>
+                        <div id="passwordRegisterHelp" class="form-text">Enter a password.</div>
+                    </div>
+
+                    {!-- Confirm Password --}
+                    <div class="col col-12 col-md-6 form-floating mb-3">
+                        <input type="password" class="form-control" id="passwordConfirmRegisterInput" name="password_confirm" value="{if password_confirm}{password_confirm}{/if}" placeholder="Confirm Password" autocomplete="new-password" required/>
+                        <label for="passwordConfirmRegisterInput" class="ms-2 form-label">Confirm Password</label>
+                        <div id="passwordConfirmRegisterHelp" class="form-text">Re-enter password.</div>
+                    </div>
+
+                </div>
+
+                {!-- Terms of Service --}
+                <label for="terms_of_service" class="form-label fw-bold">Terms of service:</label>
+                <p class="small">{exp:art_hub:lang name="terms_of_service"}</p>
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" name="accept_terms" id="acceptTerms" value="y" {if accept_terms == 'y'}checked="checked"{/if} aria-describedby="termsOfServiceFeedback" required/>
+                    <label class="form-check-label" for="acceptTerms">
+                        I accept these terms
+                    </label>
+                    <div id="termsOfServiceFeedback" class="invalid-feedback">
+                        You must agree before submitting.
+                    </div>
+                </div>
+
+                {!-- Captcha --}
+                {if captcha}
+                <div class="mb-3">
+                    <label for="captcha" class="form-label">{lang:captcha}</label>
+                    <p>{captcha}</p>
+                    <input type="text" id="captcha" name="captcha" class="form-control" value="" maxlength="20"/>
+                </div>
+                {/if}
+
+                <button type="submit" class="btn btn-primary">Register</button>
+
+                {/exp:member:registration_form}
+
+            </div>
+            <div class="card-footer">
+                Already have an account? <a href="{path='home/login'}" class="card-link">Login</a>
+            </div>
+        </div>
+    </div>
+</div>

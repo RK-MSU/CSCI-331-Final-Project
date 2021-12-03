@@ -1,0 +1,61 @@
+<!doctype html>
+<html dir="ltr" lang="{lang}">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- title -->
+        <title>{if layout:title}{layout:title} - {/if}{site_name}</title>
+        <!-- icon (shown in tab) -->
+        <link rel="icon" href="{site_url}/icon.jpg">
+        <!-- meta data -->
+        {if layout:meta_author}<meta name="author" content="{layout:meta_author}">{/if}
+        {if layout:meta_description}<meta name="description" content="{layout:meta_description}">{/if}
+        <!-- open graph common -->
+        <meta property="og:site_name" content="{site_name}">
+        <meta property="og:type" content="website">
+        {!-- og:image? let's figure this out --}
+        {!-- square, 50*50 min --}
+        {!-- <meta property="og:image" content="{theme_user_folder_url}site/default/asset/img/og/default.jpg"> --}
+        {if layout:og_title != ''}
+            <!-- open graph per page -->
+            <meta property="og:title" content="{layout:og_title}">
+            {if layout:og_url != ''}<meta property="og:url" content="{layout:og_url}">{/if}
+            {if layout:og:description != ''}<meta property="og:description" content="{layout:og_description}">{/if}
+        {/if}
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="{theme_user_folder_url}fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="{theme_user_folder_url}assets/css/default.min.css">
+        <link rel="stylesheet" href="{stylesheet='common/_global-css'}">
+        <!-- jQuery -->
+        <script src="{theme_user_folder_url}jquery/jquery-3.6.0.min.js"></script>
+    </head>
+      <body data-ng-app="myApp">
+        <header>
+            {snp_header_navbar}
+        </header>
+        <div id="mainPageBody">
+            {snp_breadcrumbs}
+            {if layout:title}
+            <div id="pageTitleContainer" class="container">
+                {if layout:title}<h1 id="pageTitle">{layout:title}</h1>{/if}
+            </div>
+            {/if}
+            {exp:art_hub:page_alert}
+            <div class="container">
+                {layout:contents}
+            </div>
+        </div>
+        <footer>
+            {snp_footer_navbar}
+        </footer>
+        {exp:art_hub:footer_html}
+        <!-- JavaScript -->
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+        <script src="{theme_user_folder_url}fontawesome/js/all.min.js"></script>
+        {exp:art_hub:script_foot}
+        {layout:scripts}
+    </body>
+</html>

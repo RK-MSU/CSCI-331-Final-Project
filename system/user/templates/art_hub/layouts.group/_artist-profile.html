@@ -1,0 +1,158 @@
+{layout='layouts/_html-wrapper'}
+
+{!-- layout vars --}
+{!-- breadcrumbs --}
+{layout:set:append name='breadcrumbs'}Artists{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}artist{/layout:set:append}
+
+{if layout:name}
+{!-- page title --}
+{layout:set name="title"}{layout:name}'s Profile{/layout:set}
+{!-- breadcrumbs --}
+{layout:set:append name='breadcrumbs'}{layout:name}{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}artist/view/{layout:id}{/layout:set:append}
+{if:else}
+{!-- page title --}
+{layout:set name="title"}Artist Profile{/layout:set}
+{!-- breadcrumbs --}
+{layout:set:append name='breadcrumbs'}{layout:name}{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}artist/view/{layout:id}{/layout:set:append}
+{/if}
+
+{exp:art_hub:set_flashdata name="return"}artist/view/{layout:id}{/exp:art_hub:set_flashdata}
+
+
+{!-- profile info --}
+<div class="card shadow mb-4">
+	<div class="list-group list-group-flush">
+		{!-- top profile section --}
+		<div class="list-group-item">
+			<div class="d-flex flex-column flex-md-row">
+				{!-- avatar --}
+				<img src="{layout:avatar_url}" class="rounded-circle me-md-3 align-self-center" height="100" width="100">
+
+				<div class="flex-fill d-flex flex-column flex-sm-row justify-content-sm-between">
+
+					<div class="d-flex flex-column">
+						{!-- name --}
+						<span class="fs-2 fw-bold align-self-start">{layout:name}</span>
+						{!-- username --}
+						<span class="text-muted align-self-start">@{layout:username}</span>
+						{!-- post count --}
+						<span class="align-self-start">
+							<a href="{path='artist/blog/{layout:id}'}" class="text-decoration-none">{layout:post_count} Posts</a>
+						</span>
+						{!-- comments count --}
+						{if layout:total_comments > 0}
+						<a href="{path='artist/comments/{layout:id}'}" class="text-decoration-none">
+							<span class="align-self-start">{layout:total_comments} Comments</span>
+						</a>
+						{/if}
+					</div>
+					<div class="small d-flex flex-column align-self-sm-end">
+						{!-- member activity --}
+						<div class="d-flex flex-row justify-content-md-between">
+							<span class="me-2 align-self-center">{layout:activity_label}:</span>
+							<span class="">{layout:activity_value}</span>
+						</div>
+						{!-- member joined --}
+						{if layout:join_date}
+						<div class="d-flex flex-row justify-content-md-between">
+							<span class="me-2 align-self-center">Joined:</span>
+							<span class="">{layout:join_date}</span>
+						</div>
+						{/if}
+						{!-- last entry date --}
+						{if layout:last_entry_date}
+						<div class="d-flex flex-row justify-content-md-between">
+							<span class="me-2 align-self-center">Last Post:</span>
+							<span class="">{layout:last_entry_date}</span>
+						</div>
+						{/if}
+						{!-- last comment date --}
+						{if layout:last_comment_date}
+						<div class="d-flex flex-row justify-content-md-between">
+							<span class="me-2 align-self-center">Last Comment:</span>
+							<span class="">{layout:last_comment_date}</span>
+						</div>
+						{/if}
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		{!-- member profile bio --}
+		<div class="list-group-item">
+			<span class="mb-3 fs-5 fw-bold mt-2">Profile Bio</span>
+			<p class="lh-sm">{if layout:profile}{layout:profile}{if:else}Nothing to see here...{/if}</p>
+		</div>
+
+	</div>
+</div>
+
+{!-- button actions bar --}
+<div class="d-flex justify-content-center mb-4">
+	<div class="btn-group align-self-center bg-light d-flex flex-column flex-md-row shadow rounded" role="group" aria-label="Basic outlined example">
+		<a class="btn btn-outline-primary" href="{path='artist/blog/{layout:id}'}">
+			<i class="fas fa-th"></i> View All Posts
+		</a>
+		{if layout:id != logged_in_member_id && logged_in}
+		<a class="btn btn-outline-primary" href="{path='messages/compose/{layout:id}'}">
+			<i class="fas fa-paper-plane"></i> Send Message
+		</a>
+		<a class="btn btn-outline-primary" href="{path='commissions/{layout:id}'}">
+			<i class="fas fa-file-contract"></i> Request Commission
+		</a>
+		{if:elseif logged_in} {!-- member looking at own profile --}
+		<a class="btn btn-outline-primary" href="{path='artist/settings'}">
+			<i class="fas fa-cogs"></i> Settings</a>
+		</a>
+		{/if}
+	</div>
+</div>
+
+
+<div class="card shadow mb-4">
+	{!-- member posts (preview) --}
+	<div class="card-body d-flex flex-column">
+		<span class="mb-3 fs-5 fw-bold">Posts</span>
+		{!-- artist posts - using the layout list "posts", we can get each post 'card' --}
+		{if layout:posts}
+		<div class="card-columns p-3 mb-3 bg-light border border-2 rounded">
+			{!-- loop through posts --}
+			{layout:posts}{value}{/layout:posts}
+		</div>
+		{if:else}
+		<div class="alert alert-secondary" role="alert">
+			No Posts
+		</div>
+		{/if}
+		<div class="d-flex flex-row">
+			<a class="btn btn-primary" href="{path='artist/blog/{layout:id}'}">View All Posts</a>
+		</div>
+	</div>
+</div>
+
+<div class="card shadow mb-4">
+
+	{!-- member comments (preview) --}
+	<div class="card-body d-flex flex-column">
+		<span class="mb-3 fs-5 fw-bold">Comments</span>
+		{if layout:total_comments > 0}
+		<div class="d-flex flex-column">
+			{exp:comment:entries channel="post" sort="desc" author_id="{layout:id}" limit="5"}
+			{snp_artist_comment}
+			{/exp:comment:entries}
+		</div>
+		<div class="d-flex flex-row my-3">
+			<a class="btn btn-primary" href="{path='artist/comments/{layout:id}'}">View All Comments</a>
+		</div>
+		{if:else}
+		<div class="alert alert-secondary" role="alert">
+			No Comments
+		</div>
+		{/if}
+	</div>
+
+</div>

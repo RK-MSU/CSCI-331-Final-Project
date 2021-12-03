@@ -1,0 +1,72 @@
+{layout="layouts/_html-wrapper"}
+{if segment_3 != '' && segment_3 != 'thanks'}
+	{redirect='home/contact-us'}
+{/if}
+
+{if segment_3 == 'thanks'}
+	{layout:set name="title"}Thanks!{/layout:set}
+	<div class="alert alert-success" role="alert">
+  		We received you submission. We will get back to you as soon as possible!
+	</div>
+{if:else}
+	{layout:set name="title"}Contact-Us{/layout:set}
+	<div class="row">
+		<div class="col-12 col-md-6 m-auto">
+					{exp:channel:form 
+						channel="contact_us" 
+						datepicker="no" 
+						include_assets="no" 
+						include_css="no"
+						include_jquery="no"
+						logged_out_member_id="1"
+						require_entry="no"
+						return="home/contact-us/thanks"
+						site="csci331"
+						show_fields="contact_us_name|contact_us_email|contact_us_message"
+						unique_url_title="yes"
+						dynamic_title="[contact_us_name] - [contact_us_email]"}
+			<div class="card shadow">
+				<div class="card-body">
+					{!-- Name --}
+					<fieldset class="fieldset-required">
+						<div class="field-instruct">
+							<label for="name">{label:contact_us_name}</label>
+						</div>
+						<div class="fieldset-control">
+							<input type="text" name="contact_us_name" id="name" value="{contact_us_name}" maxlength="100" required>
+							<div class="form-text">{instructions:contact_us_name}</div>
+						</div>
+					</fieldset>
+
+					{!-- email --}
+					<fieldset class="fieldset-required">
+						<div class="field-instruct">
+							<label for="email">{label:contact_us_email}</label>
+						</div>
+						<div class="fieldset-control">
+							<input type="text" name="contact_us_email" id="email" value="{contact_us_email}" maxlength="100" required>
+							<div class="form-text">{instructions:contact_us_email}</div>
+
+						</div>
+					</fieldset>
+
+
+					{!-- message --}
+					<fieldset class="fieldset-required">
+						<div class="field-instruct">
+							<label for="message">{label:contact_us_message}</label>
+						</div>
+						<div class="fieldset-control">
+							<textarea id="message" class="form-control" name="contact_us_message" dir="ltr" rows="5" placeholder="Your message...">{contact_us_message}</textarea>
+							<div class="form-text">{instructions:contact_us_message}</div>
+						</div>
+					</fieldset>
+				</div>
+				<div class="card-footer">
+					<input type="submit" class="btn btn-primary" value="Submit">
+				</div>
+			</div>
+			{/exp:channel:form}
+		</div>
+	</div>
+{/if}

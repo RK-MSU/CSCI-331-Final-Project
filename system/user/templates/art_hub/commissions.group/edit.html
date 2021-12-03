@@ -1,0 +1,32 @@
+{layout='layouts/_html-wrapper'}
+
+{if logged_out}
+	{redirect='404'}
+{/if}
+
+{if segment_4}
+	{redirect='{segment_1}/{segment_2}/{segment_3}'}
+{/if}
+
+{exp:channel:entries channel="commissions" status="Pending|Accepted|Finished|Updated" entry_id="{segment_3}"}
+	{exp:channel:form channel="commissions" dynamic_title="[title]" unique_url_title="yes" author_only="yes" datepicker="no" include_assets="yes" include_css="no" 	include_jquery="no" entry_id="{segment_3}" return="commissions/email/{url_title}/3" }
+{/exp:channel:entries}
+<div class="form-group" style="background-color: white; padding: 25px; box-shadow: 5px 5px 5px grey; border-radius: 10px;">
+
+		<h3>Commission: {title}</h3>
+
+    <p>Finalized Date:</p>
+    <input type="text" name="final_date" id="final_date" class="datepicker" value="{final_date}" aria-describedby="finalDateHelp">
+   
+    <div class="input-group mb-3">
+  		<div class="input-group-prepend">
+    		<span class="input-group-text">$</span>
+  		</div>
+  		<input type="text" class="form-control" id="final_price" name="final_price" value="{final_price}" placeholder="100.00">
+   	</div>
+	
+	<input type="hidden" name="status" value="Updated" /> {!-- sets the status to Updated to alert the client --}
+
+	<input type="submit" class="btn btn-primary" value="Submit">
+</div>
+{/exp:channel:form}

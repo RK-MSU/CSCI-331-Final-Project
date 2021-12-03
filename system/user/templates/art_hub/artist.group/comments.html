@@ -1,0 +1,37 @@
+{layout='layouts/_html-wrapper'}
+
+{layout:set name="title"}Comments: {embed="common/_member-name" member_id="{segment_3}"}{/layout:set}
+
+{layout:set:append name='breadcrumbs'}Artists{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}artist{/layout:set:append}
+
+{layout:set:append name='breadcrumbs'}{embed="common/_member-name" member_id="{segment_3}"}{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}artist/view/{segment_3}{/layout:set:append}
+
+{layout:set:append name='breadcrumbs'}Comments{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}artist/comments/{segment_3}{/layout:set:append}
+
+{exp:member:custom_profile_data member_id="{segment_3}"}
+<div class="card">
+    <div class="card-body d-flex flex-column flex-md-row">
+        {if avatar}
+        {!-- avatar --}
+        <img src="{avatar_url}" class="rounded-circle me-md-3 align-self-center" alt="{username} avatar" height="100" width="100">
+        {/if}
+        <div class="flex-fill d-flex flex-column justify-content-md-between align-self-center align-self-md-start">
+            <a href="{path='artist/view/{member_id}'}" class="fs-2 fw-bold text-decoration-none">{embed="common/_member-name" member_id="{member_id}"}</a>
+            <div class="d-flex flex-column">
+                <span>Joined {join_date:relative}</span>
+                <span>{total_comments} comment{if total_comments > 1 || total_comments == 0}s{/if}</span>
+            </div>
+        </div>
+    </div>
+</div>
+{/exp:member:custom_profile_data}
+<h2 class="my-3">Comments</h2>
+<div class="d-flex flex-column">
+    {exp:comment:entries channel="post" author_id="{segment_3}" sort="desc" orderby="date" limit="5" paginate="bottom"}
+    {snp_artist_comment}
+    {snp_pagination}
+    {/exp:comment:entries}
+</div>

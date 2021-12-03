@@ -1,0 +1,49 @@
+{layout='layouts/_html-wrapper'}
+
+{if segment_5}
+	{redirect='{segment_1}/{segment_2}/{segment_3}/{segment_4}'}
+{/if}
+
+{exp:channel:entries channel="commissions" status="Denied|Accepted|Finished|Updated" url_title="{segment_3}"}
+	{exp:email:contact_form user_recipients="no" recipients="{client_email}" charset="utf-8" allow_attachments="yes" return="commissions/list/{member_id}"}
+    	<div class="form-group" style="background-color: white; padding: 25px; box-shadow: 5px 5px 5px grey; border-radius: 10px;">
+                <h2>Email Client: {client_email}</h2>
+                <h6><em>Emails may take a while to send and may end up in the client's spam box...</em></h6>
+                <p>
+                    <label for="from">Your Email:</label><br />
+                    <input type="text" class="form-control" id="from" name="from" size="40" maxlength="35" value="{member_email}" />
+                </p>
+                {if segment_4 == '1'}
+                <p>
+                    <label for="subject">Subject:</label><br />
+                    <input type="text" class="form-control" id="subject" name="subject" size="40" value="Commission: {title} Accepted by {screen_name}"/>
+                </p>
+				{/if}
+                {if segment_4 == '2'}
+				<p>
+                    <label for="subject">Subject:</label><br />
+                    <input type="text" class="form-control" id="subject" name="subject" size="40" value="Commission: {title} Denied by {screen_name}"/>
+                </p>
+				{/if}
+                {if segment_4 == '3'}
+                <p>
+                    <label for="subject">Subject:</label><br />
+                    <input type="text" class="form-control" id="subject" name="subject" size="40" value="Commission: {title} Update from {screen_name}"/>
+                </p>
+                {/if}
+                <p>
+                    <label for="message">Message:</label><br />
+                    <textarea id="message" class="form-control" name="message" rows="18" cols="40" placeholder="I have decided to..."></textarea>
+                </p>
+                
+                <p>
+                	<label for="attachment">Attachments:</label><br />
+                    <input type="file" class="form-control" id="attachment" name="attachment"  value="{attachment}" accept=".png,.jpg,.jpeg"/>
+                </p>
+                
+                <p>
+                    <input name="submit" type='submit' value='Send Message' />
+                </p>
+		</div>
+	{/exp:email:contact_form}
+{/exp:channel:entries}

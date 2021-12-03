@@ -1,0 +1,91 @@
+{layout='layouts/_html-wrapper'}
+
+{if segment_4}
+	{redirect='{segment_1}/{segment_2}/{segment_3}'}
+{/if}
+
+{exp:channel:entries channel="commissions" status="Pending|Accepted|Finished|Updated" url_title="{segment_3}"}
+	{!-- Set the Title --}
+	<div class="card">
+  		<div class="card-body">
+    		<h5 class="card-title">{layout:set name="title"}{title}{/layout:set}</h5>
+    		<h6 class="card-subtitle mb-2 text-muted">Client: {first_name} {last_name}<br><br>Email: {client_email}<br><br>Screen name: {scrn_name}</h6>
+    		<p class="card-text">Expected by: {delivery_date format="%F %d %Y"}</p>
+			<p class="card-text">Price range: {p_lower} - {p_upper}</p>
+			<p class="card-text">For: {commercial} use</p>
+			<p class="card-text">Medium: {categories}{category_name} {/categories}</p>
+			<h5 class="card-subtitle">Description</h5>
+			<p class="card-text">{commission_description}</p>
+			<h5 class="card-subtitle">Related artworks:</h5>
+			<ul>
+			{commission_art}
+    			<li><a href="{path="post/view/{commission_art:url_title}"}">{commission_art:title}</a></li>
+				{if commission_art:no_results}
+					<p>no related posts...</p>
+				{/if}
+  			{/commission_art}
+			</ul>
+			
+			{if commission_images}
+			  <h5>Images</h5>
+			  <div>
+				  {commission_images}
+				  {commission_images:art_img}
+				  {content}
+				  <img src="{url}" height="200" width="200">
+				  {/content}
+				  {/commission_images:art_img}
+				  {/commission_images}
+			  </div>
+			 {/if} 
+			
+			<h5 class="card-title">From Artist</h5>
+			<p class="card-text">Delivered by: {if final_date} {final_date format="%F %d %Y"}{if:else}no final delivery date decided...{/if}</p>
+			<p class="card-text">Finalized Price:{if final_price} ${final_price}{if:else} no finalized price decided...{/if}</p>
+			
+			<div class="d-flex justify-content-center mb-4">
+			  <div class="btn-group align-self-center bg-light d-flex flex-column flex-md-row shadow rounded" role="group" aria-label="Basic outlined example">
+				  	{if status == 'Pending'}
+						{!--accept--}
+						{exp:channel:form channel="commissions" dynamic_title="[title]" unique_url_title="yes" author_only="yes" datepicker="no" include_assets="yes" include_css="no" include_jquery="no" entry_id="{entry_id}" return="commissions/email/{url_title}/1"}
+							<input type="hidden" name="status" value="Accepted" />
+							<input type="submit" class="btn btn-outline-primary" value="Accept">
+						{/exp:channel:form} 
+						{!--deny--}
+						{exp:channel:form channel="commissions" dynamic_title="[title]" unique_url_title="yes" author_only="yes" datepicker="no" include_assets="yes" include_css="no" include_jquery="no" entry_id="{entry_id}" return="commissions/email/{url_title}/2"}
+	                    	<input type="hidden" name="status" value="Denied" />
+	                    	<input type="submit" class="btn btn-outline-primary" value="Deny">
+                    	{/exp:channel:form}
+					{/if}
+					
+					{if status == 'Accepted' || status == 'Updated'}
+						<a class="btn btn-outline-primary" href="{path="commissions/email/{url_title}/3"}">
+							<i class="fas fa-paper-plane"></i> Update Client
+						</a>
+						<a class="btn btn-outline-primary" href="{path="commissions/edit/{entry_id}"}">
+							Update Commission
+						</a>
+						{!-- mark as finished--}
+						{exp:channel:form channel="commissions" dynamic_title="[title]" unique_url_title="yes" author_only="yes" datepicker="no" include_assets="yes" include_css="no" include_jquery="no" entry_id="{entry_id}" return="commissions/email/{url_title}/3"}
+							<input type="hidden" name="status" value="Finished" />
+							<input type="submit" class="btn btn-outline-primary" value="Mark as Finished">
+						{/exp:channel:form}
+						
+					{/if}
+					
+					{if status == 'Finished'}
+						{!-- move back to accepted--}
+						{exp:channel:form channel="commissions" dynamic_title="[title]" unique_url_title="yes" author_only="yes" datepicker="no" include_assets="yes" include_css="no" include_jquery="no" entry_id="{entry_id}" return="commissions/list/{id}"}
+							<input type="hidden" name="status" value="Accepted" />
+							<input type="submit" class="btn btn-outline-primary" value="Move Back to Accepted">
+						{/exp:channel:form} 
+					{/if}
+			  </div>
+		  </div>
+  		</div>
+	</div>
+
+	{if no_results}
+  		No Available Posts
+	{/if}
+{/exp:channel:entries}

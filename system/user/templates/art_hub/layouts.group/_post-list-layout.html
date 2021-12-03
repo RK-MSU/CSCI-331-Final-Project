@@ -1,0 +1,26 @@
+{layout='layouts/_html-wrapper'}
+
+{layout:set name='title'}{layout:title}{/layout:set}
+
+{if layout:cat_id}
+    {layout:set name="title"}{layout:category} Posts{/layout:set}
+    {layout:set:append name='breadcrumbs'}{layout:category}{/layout:set:append}
+    {layout:set:append name='breadcrumbs_urls'}{p_url}/category/{layout:cat_id}{/layout:set:append}
+{/if}
+
+<div class="d-flex flex-column flex-lg-row-reverse">
+    <div class="sidebar-toc">
+        <span class="fw-bold fs-5">Post Categories</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesSidebar" aria-expanded="true" aria-controls="categoriesSidebar">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse" id="categoriesSidebar">
+            {exp:channel:categories channel='{layout:ch}' show_empty="no" channel="post" style="nested"}
+            <a href="{path='{layout:p_url}/category/{category_id}'}" class="{if layout:cat_id == category_id}active{/if}">{category_name}</a>
+            {/exp:channel:categories}
+        </div>
+    </div>
+    <div class="flex-fill">
+        {layout:contents}
+    </div>
+</div>

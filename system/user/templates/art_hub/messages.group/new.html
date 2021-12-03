@@ -1,0 +1,32 @@
+{layout='layouts/_html-wrapper'}
+
+{layout:set name="title" value="New Message"}
+
+{layout:set:append name='breadcrumbs'}Messages{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}messages{/layout:set:append}
+
+{layout:set:append name='breadcrumbs'}New Message{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}messages/new{/layout:set:append}
+
+<div class="alert alert-warning fs-5" role="alert">
+    Select a member to message.
+</div>
+
+<div class="card">
+    <div class="list-group">
+        {exp:member:memberlist orderby="screen_name" sort="asc" sticky="only"}
+            {member_rows}
+            {if member_id != logged_in_member_id}
+            {exp:member:custom_profile_data member_id="{member_id}"}
+            <div class="list-group-item list-group-item-action">
+                <a href="{path='messages/compose/{member_id}'}" class="d-flex flex-row justify-content-start text-decoration-none">
+                    <img src="{avatar_url}" height="50" width="50" class="rounded border border-1 align-self-center">
+                    <span class="align-self-center ms-2 fs-5">{embed="common/_member-name" member_id="{member_id}"}</span>
+                </a>
+            </div>
+            {/exp:member:custom_profile_data}
+            {/if}
+            {/member_rows}
+        {/exp:member:memberlist}
+    </div>
+</div>

@@ -1,0 +1,10 @@
+{layout="layouts/_html-wrapper"}
+{layout:set name="title" value="Registration Success!"}
+
+{if !logged_in}
+	{redirect="404"}
+{/if}
+
+<div class="alert alert-success" role="alert">
+  {username}, successfully registered a new account!
+</div>

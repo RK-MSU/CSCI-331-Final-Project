@@ -1,0 +1,13 @@
+title: ArtHub
+
+# sourceDir: docs
+# outputDir: build
+
+themeDir: themes
+
+assetsDir: './themes/user/assets'
+assetsSourceDir: './themes/user/assets-src'
+
+# customVariables:
+#   current_version: '6.1.6'
+#   current_year: 2021

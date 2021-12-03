@@ -1,0 +1,94 @@
+{layout='layouts/_html-wrapper'}
+
+{if logged_out}
+	{redirect='404'}
+{/if}
+
+{if segment_4}
+	{redirect='{segment_1}/{segment_2}/{segment_3}'}
+{/if}
+
+
+{preload_replace:id='{segment_3}'}
+{layout:set name='id' value='{id}'}
+{!-- this way only the artist can view their commissions --}
+
+{if logged_in && {id} != logged_in_member_id} 
+	{redirect='404'}
+{/if}
+
+
+<h1>Your Commissions</h1>
+<div class="card shadow">
+        <nav class="card-header">
+            <div class="nav nav-tabs card-header-tabs" id="nav-tab" role="tablist">
+                {!-- main tab button --}
+                <button class="nav-link active" id="nav-general-tab" data-bs-toggle="tab" data-bs-target="#nav-pending" type="button" role="tab" aria-controls="nav-general" aria-selected="true">Pending</button>
+                {!-- categories tab button --}
+                <button class="nav-link" id="nav-categories-tab" data-bs-toggle="tab" data-bs-target="#nav-accepted" type="button" role="tab" aria-controls="nav-categories" aria-selected="true">Accepted</button>
+                {!-- settings tab button --}
+                <button class="nav-link" id="nav-settings-tab" data-bs-toggle="tab" data-bs-target="#nav-finished" type="button" role="tab" aria-controls="nav-settings" aria-selected="false">Finished</button>
+            </div>
+        </nav>
+		<div class="card-body">
+            
+            <div class="tab-content" id="nav-tabContent">
+                
+                {!-- main tab --}
+                <div class="tab-pane fade show active" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+					<div class="card-deck">
+				
+					{exp:channel:entries channel="commissions" author_id='{id}' status="Pending" sort="desc" dynamic="no"}
+						<div class="card" style="border-radius: 10px; margin: 10px;">
+							<div class="card-body">
+								<h5 class="card-title"><a href="{path='commissions/entry/{url_title}'}">{first_name} {last_name}</a></h5>
+								<h6 class="card-subtitle mb-2 text-muted">Pending: {client_email}</h6>
+								<p class="card-text">{commission_description}</p>
+							</div>
+						</div>
+						{if no_results}
+						<div class="card" style="border-radius: 10px; margin: 10px;">
+							<div class="card-body">
+								<h5 class="card-title">No pending commissions...</h5>
+							</div>
+						</div>
+						{/if}
+					{/exp:channel:entries}
+			 	 </div></div>
+			<div class="tab-pane fade" id="nav-accepted" role="tabpanel" aria-labelledby="nav-accepted-tab">
+					<div class="card-deck">
+					{exp:channel:entries channel="commissions" author_id='{id}' status="Accepted|Updated" sort="desc" dynamic="no"}
+						<div class="card" style="border-radius: 10px; margin: 10px;">
+							<div class="card-body">
+								<h5 class="card-title"><a href="{path='commissions/entry/{url_title}'}">{first_name} {last_name}</a></h5>
+								<p class="card-text">{commission_description}</p>
+							</div>
+						</div>
+						{if no_results}
+						<div class="card" style="border-radius: 10px; margin: 10px;">
+							<div class="card-body">
+								<h5 class="card-title">No accepted commissions...</h5>
+							</div>
+						</div>
+						{/if}
+					{/exp:channel:entries}
+				</div></div>
+					
+			<div class="tab-pane fade" id="nav-finished" role="tabpanel" aria-labelledby="nav-finished-tab">
+				  <div class="card-deck">
+				  {exp:channel:entries channel="commissions" author_id='{id}' status="Finished" sort="desc" dynamic="no"}
+					  <div class="card" style="border-radius: 10px; margin: 10px;">
+						  <div class="card-body">
+							  <h5 class="card-title"><a href="{path='commissions/entry/{url_title}'}">{first_name} {last_name}</a></h5>
+							  <p class="card-text">{commission_description}</p>
+						  </div>
+					  </div>
+					  {if no_results}
+					  <div class="card" style="border-radius: 10px; margin: 10px;">
+						  <div class="card-body">
+							  <h5 class="card-title">No finished commissions...</h5>
+						  </div>
+					  </div>
+					  {/if}
+				  {/exp:channel:entries}
+				  </div></div></div>

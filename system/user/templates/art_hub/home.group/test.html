@@ -1,0 +1,184 @@
+{layout="layouts/_html-wrapper"}
+
+{!-- 
+    include_assets="no" 
+    include_css="no" 
+ --}
+
+
+{exp:channel:form
+    channel="post"
+    entry_id="1"
+    show_fields="art_img|art_date|art_desc"
+    return="home/test"
+    id="chanelEntryForm"
+    name="entryForm"
+    class="some-class"
+    author_only="no"
+    include_assets="no"
+    include_css="no"
+    include_jquery="no"
+    secure_action="no"
+    secure_return="no"
+    site="art_hub"
+    }
+
+<div class="card shadow">
+    <nav class="card-header">
+        <div class="nav nav-tabs card-header-tabs" id="nav-tab" role="tablist">
+            {!-- main tab button --}
+            <button class="nav-link active" id="nav-general-tab" data-bs-toggle="tab" data-bs-target="#nav-general" type="button" role="tab" aria-controls="nav-general" aria-selected="true">General</button>
+            {!-- categories tab button --}
+            <button class="nav-link" id="nav-categories-tab" data-bs-toggle="tab" data-bs-target="#nav-categories" type="button" role="tab" aria-controls="nav-categories" aria-selected="true">Categories</button>
+            {!-- settings tab button --}
+            <button class="nav-link" id="nav-settings-tab" data-bs-toggle="tab" data-bs-target="#nav-settings" type="button" role="tab" aria-controls="nav-settings" aria-selected="false">Settings</button>
+        </div>
+    </nav>
+    <div class="card-body">
+        
+        <div class="tab-content" id="nav-tabContent">
+            
+            {!-- main tab --}
+            <div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+                
+                {!-- Title --}
+                <fieldset class="fieldset-required">
+                    <div class="field-instruct">
+                        <label for="title">Title</label>
+                    </div>
+                    <div class="fieldset-control">
+                        <input type="text" name="title" id="title" value="{title}" maxlength="100" required>
+                    </div>
+                </fieldset>
+
+                {!-- URL Title --}
+                <fieldset class="fieldset-required">
+                    <div class="field-instruct">
+                        <label for="url_title">URL Title</label>
+                        <em id="urlTitleHelp">No spaces. Underscores and dashes are allowed.</em>
+                    </div>
+                    <div class="fieldset-control">
+                        <input type="text" name="url_title" id="url_title" value="{url_title}" maxlength="75" aria-describedby="urlTitleHelp" required>
+                    </div>
+                </fieldset>
+
+
+                {!-- Art Image --}
+                <fieldset class="fieldset-required">
+                    <div class="field-instruct">
+                        <label for="art_img">{label:art_img}</label>
+                        <em id="artImageHelp">{instructions:art_img}</em>
+                    </div>
+                    <div class="fieldset-control">
+                        {!-- <input type="text" name="art_img" id="art_img" data-value="{art_img}" value="{art_img}" aria-describedby="artImageHelp" required> --}
+                        {exp:art_hub:file entry_id="{entry_id}" field_name="art_img" value="{art_img}" fluid_field="no" grid_field="no"}
+                    </div>
+                </fieldset>
+                
+
+
+                {!-- Art Date --}
+                <fieldset class="fieldset-required">
+                    <div class="field-instruct">
+                        <label for="art_date">{label:art_date}</label>
+                        <em id="artDateHelp">{instructions:art_date}</em>
+                    </div>
+                    <div class="fieldset-control">
+                        <input type="text" name="art_date" id="art_date" data-value="{art_date}" value="{art_date format='%n/%j/%Y %g:%i %A'}" aria-describedby="artDateHelp" required>
+                    </div>
+                </fieldset>
+
+                {!-- Art Description --}
+                <fieldset class="fieldset-required">
+                    <div class="field-instruct">
+                        <label for="art_desc">{label:art_desc}</label>
+                        <em id="artDescriptionHelp">{instructions:art_desc}</em>
+                    </div>
+                    <div class="fieldset-control">
+                        <textarea id="art_desc" name="art_desc" rows="4" aria-describedby="artDescriptionHelp" required>{art_desc}</textarea>
+                    </div>
+                </fieldset>
+
+            </div>
+
+            {!-- categories tab --}
+            <div class="tab-pane fade" id="nav-categories" role="tabpanel" aria-labelledby="nav-categories-tab">
+                {!-- Categories --}
+                <div class="mb-3">
+                    {category_menu}
+                    <label for="category_{entry_id}">Categories</label>
+                    <select name="category[]" id="category_{entry_id}" class="form-select" multiple="multiple" aria-describedby="categoriesHelp">
+                        {select_options}
+                    </select>
+                    {/category_menu}
+                    <div id="categoriesHelp" class="form-text">Categorize this entry.</div>
+                </div>
+            </div>
+
+            {!-- settings tab --}
+            <div class="tab-pane fade" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">
+                {!-- Date --}
+                {!-- <input type="text" name="field_id_2" value="8/9/2021 9:06 PM" rel="date-picker" data-date-format="%n/%j/%Y %g:%i %A" data-timestamp="1628564760"> --}
+                <div class="mb-3">
+                    <label for="entry_date_{entry_id}" class="form-label">Date</label>
+                    <input type="text" name="entry_date" id="entry_date_{entry_id}" class="form-control" value="{entry_date}" maxlength="23"  rel="date-picker" data-date-format="%n/%j/%Y %g:%i %A" aria-describedby="entryDateHelp" required>
+                    <div id="entryDateHelp" class="form-text">Date of publication for this entry.</div>
+                </div>
+
+                {!-- Status --}
+                <div class="mb-3">
+                    {status_menu}
+                    <label for="status_{entry_id}">Status</label>
+                    <select class="form-select" name="status" id="status_{entry_id}">
+                        {select_options}
+                    </select>
+                    {/status_menu}
+                </div>
+                
+                {!-- Expiration Date --}
+                <div class="mb-3">
+                    <label for="expiration_date_{entry_id}" class="form-label">Expiration Date</label>
+                    <input type="text" name="expiration_date" id="expiration_date_{entry_id}" class="form-control" value="{expiration_date}" maxlength="23" aria-describedby="expirationDateHelp">
+                    <div id="expirationDateHelp" class="form-text">Date this entry should expire.</div>
+                </div>
+                
+                {!-- Comment Expiration Date --}
+                <div class="mb-3">
+                    <label for="comment_expiration_date_{entry_id}" class="form-label">Comment Expiration Date</label>
+                    <input type="text" name="comment_expiration_date" id="comment_expiration_date_{entry_id}" class="form-control" value="{comment_expiration_date}" maxlength="23" aria-describedby="commentExpirationDateHelp">
+                    <div id="commentExpirationDateHelp" class="form-text">Date comments for this entry should no longer be accepted.</div>
+                </div>
+                
+                {!-- Make Entry Sticky --}
+                <div class="form-check mb-3">
+                    <input type="checkbox" name="sticky" id="sticky_{entry_id}" class="form-check-input" value="y" {sticky}>
+                    <label class="form-check-label" for="sticky_{entry_id}">Make Entry Sticky</label>
+                </div>
+                
+                {!-- Allow Comments --}
+                <div class="form-check mb-3">
+                    <input type="checkbox" name="allow_comments" id="allow_comments_{entry_id}" class="form-check-input" value="y" {allow_comments}>
+                    <label class="form-check-label" for="allow_comments_{entry_id}">Allow Comments</label>
+                </div>
+                
+                
+            </div>
+        </div>
+
+        {!-- Captcha --}
+        {if captcha}
+        <div class="mb-3">
+            <label for="captcha_{entry_id}">Please enter the word you see in the image below:</label>
+            {captcha}
+            <input type="text" name="captcha" id="captcha_{entry_id}" value="{captcha_word}" maxlength="20">
+        </div>
+        {/if}
+        
+        {!-- Submit Button --}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        
+    </div>
+</div>
+
+
+{/exp:channel:form}

@@ -1,0 +1,54 @@
+{layout='layouts/_post-list-layout'}
+
+{!-- page vars (prefix p_) --}
+{preload_replace:p_title='Posts'}
+{preload_replace:p_description='View all artist posts.'}
+{preload_replace:p_url='post'}
+{preload_replace:cat_id='{segment_3}'}
+
+{!-- channel vars (prefix ch_) --}
+{preload_replace:ch='post'}
+{!-- 
+{preload_replace:ch_disable='category_fields|member_data|pagination'}
+{preload_replace:ch_disable=''}
+ --}
+
+{!-- layout vars, channel/page related --}
+{layout:set name='ch' value='{ch}'}
+{layout:set name='p_url' value='{p_url}'}
+{layout:set name='title' value='{p_title}'}
+{layout:set name='description' value='{p_description}'}
+{layout:set name='cat_id' value='{cat_id}'}
+{if segment_2 == 'category'}
+    {layout:set name='category'}{exp:art_hub:cat_name id="{segment_3}"}{/layout:set}
+{/if}
+
+{layout:set:append name='breadcrumbs'}{p_title}{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}{p_url}{/layout:set:append}
+
+{!-- OpenGraph meta output --}
+{layout:set name='og_title' value='{p_title}'}
+{layout:set name='og_url'}{path='{p_url}'}{/layout:set}
+{layout:set name='og_description' value='{p_description}'}
+
+{exp:search:simple_form channel="{ch}" result_page="{p_url}/searches" search_in="entries" show_expired="yes" show_future_entries="yes" results="8" name="post_search_form"}
+<div class="input-group mb-3">
+    <button type="submit" class="btn btn-secondary" type="button" id="search-button">Search</button>
+    <input type="text" name="keywords" value="" class="form-control" placeholder="Keywords..." maxlength="100" aria-label="Search Keywords" aria-describedby="search-button">
+</div>
+{/exp:search:simple_form}
+
+{exp:channel:entries channel='{ch}' dynamic="no" cache="no" refresh="60" category="{segment_3}" limit="6" orderby="art_date" sort="desc" paginate="bottom"}
+    
+    {snp_pagination}
+
+    {snp_post_list_item}
+
+    {!-- no results --}
+    {if no_results}
+    <div class="alert alert-dark" role="alert">
+    	No Posts.
+	</div>
+    {/if}
+
+{/exp:channel:entries}

@@ -1,0 +1,20 @@
+<li class="nav-item dropdown">
+	<a class="nav-link dropdown-toggle" href="#" id="legacyMemberNavbarDropdownNavItem" role="button" data-bs-toggle="dropdown" aria-expanded="false">Legacy Templates</a>
+	<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="legacyMemberNavbarDropdownNavItem">
+		{if member_group == 1}
+		<li><a class="dropdown-item" href="{cp_url}?/cp/design/members" target="_blank">Edit Legacy Templates</a></li>
+		<li><hr class="dropdown-divider"></li>
+		{/if}
+		<li><h6 class="dropdown-header">General</h6></li>
+		<li><a class="dropdown-item" href="{path='member/profile'}">Your Control Panel</a></li>
+		<li><a class="dropdown-item" href="{path='member/memberlist'}">View the Memberlist</a></li>
+		<li><hr class="dropdown-divider"></li>
+		<li><h6 class="dropdown-header">Profile</h6></li>
+		<li><a class="dropdown-item" href="{path='member/edit_profile'}">Edit Profile</a></li>
+		<li><hr class="dropdown-divider"></li>
+		<li><h6 class="dropdown-header">Messages</h6></li>
+		<li><a class="dropdown-item" href="{path='member/messages/compose'}">New Message</a></li>
+		<li><a class="dropdown-item" href="{path='member/messages/view_folder/1/'}">Inbox</a></li>
+		<li><a class="dropdown-item" href="{path='member/messages/view_folder/2/'}">Sent</a></li>
+	</ul>
+</li>

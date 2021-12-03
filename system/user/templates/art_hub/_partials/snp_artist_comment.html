@@ -1,0 +1,18 @@
+<div class="card shadow-sm comment artist-comment">
+    <div class="card-header text-muted">{comment_date:relative}</div>
+    <div class="card-body bg-light py-1 my-0 d-flex flex-column flex-md-row justify-content-md-between">
+        <div class="pe-md-2">{comment}</div>
+        <div class="align-self-start d-flex flex-column">
+            <span class="text-muted small">Post:</span>
+            {exp:channel:entries dynamic="no" limit="1" entry_id="{entry_id}"}
+            <div class="d-flex flex-row text-nowrap post-preview w-25">
+                <img src="{art_img}" alt="{art_img}{title}{/art_img}" class="me-1 rounded border border-2 border-secondary align-self-center" height="35" width="35">
+                <div class="align-self-center d-flex flex-row flex-md-column justify-content-md-between">
+                    <a href="{path='post/view/{url_title}'}" class="fs-6 fw-bold text-decoration-none">{title}</a>
+                    <span class="align-self-end align-self-md-start ms-1 ms-md-0">by <a href="{path='artist/view/{author_id}'}" class="text-decoration-none">{embed="common/_member-name" member_id="{author_id}"}</a></span>
+                </div>
+            </div>
+            {/exp:channel:entries}
+        </div>
+    </div>
+</div>

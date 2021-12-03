@@ -1,0 +1,40 @@
+{layout='layouts/_html-wrapper'}
+
+{!-- layout vars, channel/page related --}
+{layout:set name='title' value='Search: Posts'}
+
+{layout:set:append name='breadcrumbs'}Posts{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}post{/layout:set:append}
+
+{layout:set:append name='breadcrumbs'}Search: Posts{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}post/searches/{segment_3}{/layout:set:append}
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive-xxl">
+            <table class="table table-striped table-sm">
+                <thead class="text-nowrap">
+                    <tr>
+                        <th>{!-- {lang:title} --}Post Title</th>
+                        <th>{lang:excerpt}</th>
+                        <th>{lang:author}</th>
+                        {!-- <th>{lang:date}</th> --}
+                        <th>{lang:total_comments}</th>
+                        {!-- <th>{lang:recent_comments}</th> --}
+                    </tr>
+                </thead>
+            {exp:search:search_results search_id="{segment_3}"}
+                <tr>
+                    <td style="min-width: 200px;"><b><a href="{path='post/view/{url_title}'}">{title}</a></b></td>
+                    <td style="min-width: 300px;">{excerpt}</td>
+                    <td><a href="{member_path='member/view/'}" class="text-nowrap">{embed="common/_member-name" member_id="{author_id}"}</a></td>
+                    {!-- <td class="text-center">{entry_date format="%m/%d/%y"}</td> --}
+                    <td class="text-center">{comment_total}</td>
+                    {!-- <td>{recent_comment_date format="%m/%d/%y"}</td> --}
+                </tr>
+                {snp_pagination}
+            {/exp:search:search_results}
+            </table>
+        </div>
+    </div>
+</div>

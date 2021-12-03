@@ -1,0 +1,33 @@
+{layout='layouts/_html-wrapper'}
+
+{!-- text replacements --}
+{preload_replace:ch="post"}
+{preload_replace:cache_entry="no"}
+{preload_replace:cache_refresh="60"}
+
+{layout:set:append name='breadcrumbs'}Posts{/layout:set:append}
+{layout:set:append name='breadcrumbs_urls'}post{/layout:set:append}
+
+{exp:channel:entries channel="{ch}" url_title="{segment_3}" cache="{cache_entry}" refresh="{cache_refresh}" dynamic="no" limit="1" require_entry="yes" track_views="one"}
+    {layout:set name="title"}Comments: {title}{/layout:set}
+
+    {layout:set:append name='breadcrumbs'}{title}{/layout:set:append}
+    {layout:set:append name='breadcrumbs_urls'}post/view/{url_title}{/layout:set:append}
+
+    {layout:set:append name='breadcrumbs'}Comments{/layout:set:append}
+    {layout:set:append name='breadcrumbs_urls'}post/comments/{url_title}{/layout:set:append}
+
+    {snp_post_list_item}
+{/exp:channel:entries}
+<h2 class="my-3">Comments</h2>
+<div class="d-flex flex-column">
+    {exp:comment:entries channel="post" url_title="{segment_3}" sort="desc" orderby="date" limit="10" paginate="bottom"}
+    {if no_results}
+    <div class="alert alert-dark" role="alert">
+        No Comments
+    </div>
+    {/if}
+    {snp_post_comment}
+    {snp_pagination}
+    {/exp:comment:entries}
+</div>

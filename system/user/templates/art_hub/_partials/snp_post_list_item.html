@@ -1,0 +1,36 @@
+<div class="card mb-2 clickable post" data-nav-href="{path='post/view/{url_title}'}">
+    <div class="card-header d-flex flex-row justify-content-between">
+		<div class="flex-fill">
+            {embed="common/_member-info" member_id="{author_id}" avatar="yes" last_activity='no' total_entries='no' }
+        </div>
+        {if logged_in && (logged_in_member_group == 1 || logged_in_member_id == author_id)}
+        <div class="d-flex flex-row">
+            <a class="btn btn-sm btn-outline-secondary" href="{path='post/edit/{entry_id}'}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Post"><i class="fas fa-edit"></i></a>
+            {if logged_in_member_group == 1}<a class="btn btn-sm btn-outline-secondary ms-1" href="{cp_edit_entry_url}"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="View in Control Panel"><i class="fas fa-cogs"></i></a>{/if}
+        </div>
+        {/if}
+	</div>
+    <div class="card-body">
+        <div class="d-flex flex-column flex-lg-row">
+            {if art_img}
+            <img src="{art_img}" class="align-self-center align-self-lg-start" alt="..." width="200">
+            {/if}
+            <div class="flex-fill d-flex flex-column ms-md-3">
+                <div class="d-flex flex-column flex-md-row justify-content-md-between">
+                    <h5 class="card-title fs-4 mb-0">
+                        <a class="text-decoration-none" href="{path='post/view/{url_title}'}">{title}</a>
+                    </h5>
+                    <span class="small text-muted align-self-md-center text-nowrap">{art_date:relative}</span>
+                </div>
+                {!-- categories --}
+                {if has_categories}
+                <span class="small post-categories py-1">
+                    {snp_post_categories}
+                </span>
+                {/if}
+                <p class="small flex-fill">{art_desc:limit characters="400"}</p>
+                <a href="{path='post/comments/{url_title}'}" class="align-self-end small fst-italic text-decoration-none">{comment_total} Comment{if comment_total > 1 || comment_total == 0}s{/if}</a>
+            </div>
+        </div>
+    </div>
+</div>

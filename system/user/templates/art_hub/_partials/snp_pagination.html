@@ -1,0 +1,53 @@
+{paginate}
+<div class="d-flex justify-content-start">
+  <div class="align-self-center">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+      {pagination_links always_show_first_last="yes"}
+          {first_page}
+          {if current_page != 1}
+          <li class="page-item{if current_page == 1} disabled{/if}">
+              <a class="page-link" href="{pagination_url}" aria-label="First">
+                <span>&laquo;</span>
+              </a>
+          </li>
+          {/if}
+          {/first_page}
+          {previous_page}
+          <li class="page-item">
+              <a class="page-link" href="{pagination_url}" aria-label="Previous">
+                  <span>Previous</span>
+              </a>
+          </li>
+          {/previous_page}
+          {page}
+          <li class="page-item page-{pagination_page_number} {if current_page}active{/if}">
+              <a class="page-link" href="{pagination_url}">{pagination_page_number}</a>
+          </li>
+          {/page}
+          {next_page}
+          <li class="page-item">
+              <a class="page-link" href="{pagination_url}" aria-label="Next">
+                  <span>Next</span>
+              </a>
+          </li>
+          {/next_page}
+          {last_page}
+          {if current_page != total_pages}
+          <li class="page-item{if current_page == total_pages} disabled{/if}">
+              <a class="page-link" href="{pagination_url}" aria-label="Last">
+                  <span>&raquo;</span>
+              </a>
+          </li>
+          {/if}
+          {/last_page}
+      {/pagination_links}
+      </ul>
+  </nav>
+    
+  </div>
+
+</div>
+
+{!-- <p>Page {current_page} of {total_pages}</p> --}
+{/paginate}

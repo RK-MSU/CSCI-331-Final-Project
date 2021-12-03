@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-sm navbar-dark d-none d-md-block">
+    <div class="container">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/RK-MSU/CSCI-331-Final-Project" data-bs-toggle="tooltip" data-bs-placement="top" title="Check us out on Github">
+                    <i class="fab fa-github"></i>
+                </a>
+            </li>
+            {if logged_in && member_group == 1}
+            <li class="nav-item">
+                <a class="nav-link" href="{cp_url}" data-bs-toggle="tooltip" data-bs-placement="top" title="{site_name} Control Panel">
+                    <i class="fas fa-users-cog"></i>
+                </a>
+            </li>
+            {/if}
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="https://www.cs.montana.edu/defrance/classes/331/" data-bs-toggle="tooltip" data-bs-placement="top" title="CSCI-331 Web Development">
+                    <i class="fas fa-school"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://expressionengine.com/" data-bs-toggle="tooltip" data-bs-placement="top" title="ExpressionEngine">
+                    <img src="{site_url}images/uploads/site/ee-logo-white.svg" class="ee-logo"/>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://getbootstrap.com/docs/5.1/getting-started/introduction/" data-bs-toggle="tooltip" data-bs-placement="top" title="Bootstrap v5.1">
+                    <i class="fab fa-bootstrap"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://fontawesome.com/" data-bs-toggle="tooltip" data-bs-placement="top" title="Fonticons, Inc.">
+                    <i class="far fa-flag"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

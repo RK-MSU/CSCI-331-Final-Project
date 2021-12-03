@@ -1,0 +1,21 @@
+{!-- use in combination with "common/_member-info" --}
+{preload_replace:def_avatar_size="25"}
+
+<div class="d-flex flex-column">
+    <div class="d-flex flex-row justify-content-start">
+        <img src="{layout:avatar}" class="me-1 rounded-circle border border-2 border-secondary align-self-center" height="{if layout:avatar_size}{layout:avatar_size}{if:else}{def_avatar_size}{/if}" width="{if layout:avatar_size}{layout:avatar_size}{if:else}{def_avatar_size}{/if}">
+        {if layout:link}<a href="{layout:link}" class="text-decoration-none align-self-center">{/if}
+            <span class="align-self-center fs-6 fw-bold">{layout:member_name}</span>
+        {if layout:link}</a>{/if}
+    </div>
+    {if layout:last_activity}
+    <div class="align-self-start small">
+        <span class="align-self-center small text-muted">Last Active: {layout:last_activity}</span>
+    </div>
+    {/if}
+    {if layout:total_entries}
+    <div class="align-self-start small">
+        <span class="align-self-center small text-muted">Posts: {layout:total_entries}</span>
+    </div>
+    {/if}
+</div>

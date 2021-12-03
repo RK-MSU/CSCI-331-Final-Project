@@ -1,0 +1,37 @@
+{layout='layouts/_html-wrapper'}
+
+{layout:set:prepend name='breadcrumbs'}Posts{/layout:set:prepend}
+{layout:set:prepend name='breadcrumbs_urls'}post{/layout:set:prepend}
+
+{layout:contents}
+
+{if layout:allow_comments}
+<div class="mt-3">
+    <h4>Comments</h4>
+    {if layout:comment_total > 0}
+        <div class="d-flex flex-column">
+            {exp:comment:entries sort="desc" orderby="date" limit="5" url_title="{layout:url_title}"}
+            {snp_post_comment}
+            {/exp:comment:entries}
+        </div>
+        <a class="btn btn-primary btn-sm" href="{path='post/comments/{segment_3}'}">View All Comments</a>
+    {if:else}
+        <div class="alert alert-secondary" role="alert">
+            No Comments
+        </div>
+    {/if}
+    {exp:comment:form channel="post" return=""}
+    <div class="card mt-4">
+        <div class="card-header">
+            Leave Comment
+        </div>
+        <div class="card-body">
+            {snp_comment_form}
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-primary">Make Comment</button>
+        </div>
+    </div>
+    {/exp:comment:form}
+</div>
+{/if}
